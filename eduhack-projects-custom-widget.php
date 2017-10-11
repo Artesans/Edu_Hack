@@ -32,169 +32,189 @@ class wpb_widget extends WP_Widget {
 // Creating widget front-end
 
     public function widget( $args, $instance ) {
+        //global $post;
 
-        global $post;
 
-
-            $title = apply_filters( 'widget_title', $instance['title'] );
-
-// before and after widget arguments are defined by themes
-            echo $args['before_widget'];
-            if ( ! empty( $title ) )
-                echo $args['before_title'] . $title . $args['after_title'];
 
 // This is where you run the code and display the output
-            $stored_meta = get_post_meta( $post->ID );
 
-            ?>
+        $args = array(
+            'post_type' => array( 'cpt_project' ),
+            'posts_per_page' => 1,
+            'post_status' => 'publish',
+        );
 
-            <!-- STATUS -->
-            <section id="project-status" class="project-section" >
-                <h3><?php _e("Status");?></h3>
-                <div class="checkout-wrap">
-                    <ul class="checkout-bar">
-                        <?php
-                        $status = unserialize($stored_meta['widget-status'][0]);
-                        $status = unserialize($status);
+        $the_query = new WP_Query( $args );
+        if ( $the_query->have_posts() ) {
 
-                        $status_names = array(1=>"Empatitzar", 2=>"Definir", 3=>"Idear", 4=>"Prototipar");
+            while ($the_query->have_posts()) {
+                print_r($the_query->the_post());
+                $id = get_the_ID();
+                $stored_meta = get_post_meta( $id );
 
-                        for($s=1; $s<=4; $s++){
-                            $checked = (in_array((string)$s, $status, true)) ? 'active' : 'next';
-                            $current = ($s == $stored_meta['widget-config_fase'][0]) ? 'current' : '';
-                            ?>
-                            <li class="project-fase fase <?php echo $checked;?> <?php echo $current;?>"><span class="status-title"><?php echo $status_names[$s];?></span></li>
-                        <?php }?>
-                        <!--<div class="status-legend">
+                $title = apply_filters( 'widget_title', $instance['title'] );
+
+// before and after widget arguments are defined by themes
+                echo $args['before_widget'];
+                if ( ! empty( $title ) )
+                    echo $args['before_title'] . $title . $args['after_title'];
+
+                ?>
+
+                <!-- STATUS -->
+                <section id="project-status" class="project-section" >
+                    <h3><?php _e("Status");?></h3>
+                    <div class="checkout-wrap">
+                        <ul class="checkout-bar">
+                            <?php
+                            $status = unserialize($stored_meta['widget-status'][0]);
+                            $status = unserialize($status);
+
+                            $status_names = array(1=>"Empatitzar", 2=>"Definir", 3=>"Idear", 4=>"Prototipar");
+
+                            for($s=1; $s<=4; $s++){
+                                $checked = (in_array((string)$s, $status, true)) ? 'active' : 'next';
+                                $current = ($s == $stored_meta['widget-config_fase'][0]) ? 'current' : '';
+                                ?>
+                                <li class="project-fase fase <?php echo $checked;?> <?php echo $current;?>"><span class="status-title"><?php echo $status_names[$s];?></span></li>
+                            <?php }?>
+                            <!--<div class="status-legend">
                             <p>Objectiu: Fase <?php echo $stored_meta['widget-config_fase'][0];?></p>
                         </div>-->
-                    </ul>
-                </div>
-            </section>
-
-
-
-            <!-- TAGS -->
-            <section id="project-tags" class="project-section" >
-                <h3><?php _e("Tags");?></h3>
-                <?php
-                $selected_tags1_text = unserialize($stored_meta['widget-tags1_text'][0]);
-                $selected_tags1_text = unserialize($selected_tags1_text);
-                $selected_tags1_img = unserialize($stored_meta['widget-config_tag_img'][0]);
-                $selected_tags1_img = unserialize($selected_tags1_img);
-
-                $selected_tags2_text = unserialize($stored_meta['widget-tags2_text'][0]);
-                $selected_tags2_text = unserialize($selected_tags2_text);
-                $selected_tags2_color = unserialize($stored_meta['widget-tags2_color'][0]);
-                $selected_tags2_color = unserialize($selected_tags2_color);
-
-                if(!empty($selected_tags1_text)){?>
-                    <div class="block-tags">
-                        <?php
-                        for($i=0; $i<count($selected_tags1_text); $i++){
-                            $this_image = wp_get_attachment_image_src( $selected_tags1_img[$i], array(100, 100) );
-                            ?>
-                            <div class="choosen-tag tag1">
-                                <img class="tag-img" src="<?php echo $this_image[0]; ?>"/>
-                                <span class="text-tag"><?php echo $selected_tags1_text[$i];?></span>
-                            </div>
-                        <?php }?>
+                        </ul>
                     </div>
-                <?php }
-                if(!empty($selected_tags2_text)){?>
-                    <div class="block-tags">
-                        <?php
-                        for($i=0; $i<count($selected_tags2_text); $i++){?>
-                            <div class="choosen-tag">
-                                <span class="color-tag" style="background-color:#<?php echo $selected_tags2_color[$i];?>"></span>
-                                <span class="text-tag"><?php echo $selected_tags2_text[$i];?></span>
-                            </div>
-                        <?php }?>
-                    </div>
-                <?php }?>
-            </section>
+                </section>
 
 
 
-            <!-- DESCRIPTION -->
-            <section id="project-description" class="project-section" >
-                <h3><?php _e("Description");?></h3>
-                <div class="description"><?php echo $stored_meta['widget-description'][0]; ?></div>
-                <span class="read-more read-button"><?php _e("Read More");?></span>
-            </section>
+                <!-- TAGS -->
+                <section id="project-tags" class="project-section" >
+                    <h3><?php _e("Tags");?></h3>
+                    <?php
+                    $selected_tags1_text = unserialize($stored_meta['widget-tags1_text'][0]);
+                    $selected_tags1_text = unserialize($selected_tags1_text);
+                    $selected_tags1_img = unserialize($stored_meta['widget-config_tag_img'][0]);
+                    $selected_tags1_img = unserialize($selected_tags1_img);
 
+                    $selected_tags2_text = unserialize($stored_meta['widget-tags2_text'][0]);
+                    $selected_tags2_text = unserialize($selected_tags2_text);
+                    $selected_tags2_color = unserialize($stored_meta['widget-tags2_color'][0]);
+                    $selected_tags2_color = unserialize($selected_tags2_color);
 
-        
-            <!-- TEAM -->
-            <section id="project-team" class="project-section" >
-                <h3><?php _e("Team");?></h3>
-            <?php
-            if($stored_meta['widget-team_name'][0]!='') {
-                $team_name = unserialize($stored_meta['widget-team_name'][0]);
-                $team_name = unserialize($team_name);
-                $team_school = unserialize($stored_meta['widget-team_school'][0]);
-                $team_school = unserialize($team_school);
-                $team_img = unserialize($stored_meta['widget-team_img'][0]);
-                $team_img = unserialize($team_img);
-
-                for ($i = 0; $i < count($team_name); $i++) {
-                    $this_image = wp_get_attachment_image_src( $team_img[$i], array(100, 100) );
-                    ?>
-                    <div class="team-member">
-                        <div class="column-left"><img class="member-img" src="<?php echo $this_image[0]; ?>"/></div>
-                        <div class="column-right">
-                            <div class="member-name"><?php echo $team_name[$i]; ?></div>
-                            <div class="member-school"><em><?php echo $team_school[$i]; ?></em></div>
-                        </div>
-                    </div>
-                <?php }
-            }
-            ?>
-
-                <!-- FACILITADORS -->
-                <?php
-                if($stored_meta['widget-facilitador_name'][0]!='') {
-                    $facilitador_name = unserialize($stored_meta['widget-facilitador_name'][0]);
-                    $facilitador_name = unserialize($facilitador_name);
-                    $facilitador_school = unserialize($stored_meta['widget-facilitador_school'][0]);
-                    $facilitador_school = unserialize($facilitador_school);
-                    $facilitador_img = unserialize($stored_meta['widget-facilitador_img'][0]);
-                    $facilitador_img = unserialize($facilitador_img);
-
-                    for ($i = 0; $i < count($facilitador_name); $i++) {
-                        $this_image = wp_get_attachment_image_src( $facilitador_img[$i], array(100, 100) );
-                        ?>
-                        <div class="team-member facilitador">
-                            <div class="column-left"><img class="member-img" src="<?php echo $this_image[0]; ?>"/></div>
-                            <div class="column-right">
-                                <div class="member-name"><?php echo $facilitador_name[$i]; ?></div>
-                                <div ><?php _e("Facilitador",'eduhack-projects-widget' )?></div>
-                                <div class="member-school"><em><?php echo $facilitador_school[$i]; ?></em></div>
-                            </div>
+                    if(!empty($selected_tags1_text)){?>
+                        <div class="block-tags">
+                            <?php
+                            for($i=0; $i<count($selected_tags1_text); $i++){
+                                $this_image = wp_get_attachment_image_src( $selected_tags1_img[$i], array(100, 100) );
+                                ?>
+                                <div class="choosen-tag tag1">
+                                    <img class="tag-img" src="<?php echo $this_image[0]; ?>"/>
+                                    <span class="text-tag"><?php echo $selected_tags1_text[$i];?></span>
+                                </div>
+                            <?php }?>
                         </div>
                     <?php }
-                }
-                ?>
-            </section>
+                    if(!empty($selected_tags2_text)){?>
+                        <div class="block-tags">
+                            <?php
+                            for($i=0; $i<count($selected_tags2_text); $i++){?>
+                                <div class="choosen-tag">
+                                    <span class="color-tag" style="background-color:#<?php echo $selected_tags2_color[$i];?>"></span>
+                                    <span class="text-tag"><?php echo $selected_tags2_text[$i];?></span>
+                                </div>
+                            <?php }?>
+                        </div>
+                    <?php }?>
+                </section>
 
 
 
-            <!-- BUTTONS -->
-            <section id="project-buttons" class="project-section" >
-                <?php
-                $buttons = $stored_meta['widget-buttons'][0];
-                $buttons = explode(";;", $buttons);
+                <!-- DESCRIPTION -->
+                <section id="project-description" class="project-section" >
+                    <h3><?php _e("Description");?></h3>
+                    <div class="description"><?php echo $stored_meta['widget-description'][0]; ?></div>
+                    <span class="read-more read-button"><?php _e("Read More");?></span>
+                </section>
 
-                foreach($buttons as $button){
-                    $this_button = explode(',', $button);
+
+
+                <!-- TEAM -->
+                <section id="project-team" class="project-section" >
+                    <h3><?php _e("Team");?></h3>
+                    <?php
+                    if($stored_meta['widget-team_name'][0]!='') {
+                        $team_name = unserialize($stored_meta['widget-team_name'][0]);
+                        $team_name = unserialize($team_name);
+                        $team_school = unserialize($stored_meta['widget-team_school'][0]);
+                        $team_school = unserialize($team_school);
+                        $team_img = unserialize($stored_meta['widget-team_img'][0]);
+                        $team_img = unserialize($team_img);
+
+                        for ($i = 0; $i < count($team_name); $i++) {
+                            $this_image = wp_get_attachment_image_src( $team_img[$i], array(100, 100) );
+                            ?>
+                            <div class="team-member">
+                                <div class="column-left"><img class="member-img" src="<?php echo $this_image[0]; ?>"/></div>
+                                <div class="column-right">
+                                    <div class="member-name"><?php echo $team_name[$i]; ?></div>
+                                    <div class="member-school"><em><?php echo $team_school[$i]; ?></em></div>
+                                </div>
+                            </div>
+                        <?php }
+                    }
                     ?>
 
-                    <a href="<?php echo $this_button[1];?>" target="_blank" class="button"><?php echo $this_button[0];?></a>
-                <?php }?>
-            </section>
+                    <!-- FACILITADORS -->
+                    <?php
+                    if($stored_meta['widget-facilitador_name'][0]!='') {
+                        $facilitador_name = unserialize($stored_meta['widget-facilitador_name'][0]);
+                        $facilitador_name = unserialize($facilitador_name);
+                        $facilitador_school = unserialize($stored_meta['widget-facilitador_school'][0]);
+                        $facilitador_school = unserialize($facilitador_school);
+                        $facilitador_img = unserialize($stored_meta['widget-facilitador_img'][0]);
+                        $facilitador_img = unserialize($facilitador_img);
+
+                        for ($i = 0; $i < count($facilitador_name); $i++) {
+                            $this_image = wp_get_attachment_image_src( $facilitador_img[$i], array(100, 100) );
+                            ?>
+                            <div class="team-member facilitador">
+                                <div class="column-left"><img class="member-img" src="<?php echo $this_image[0]; ?>"/></div>
+                                <div class="column-right">
+                                    <div class="member-name"><?php echo $facilitador_name[$i]; ?></div>
+                                    <div ><?php _e("Facilitador",'eduhack-projects-widget' )?></div>
+                                    <div class="member-school"><em><?php echo $facilitador_school[$i]; ?></em></div>
+                                </div>
+                            </div>
+                        <?php }
+                    }
+                    ?>
+                </section>
 
 
-            <?php
+
+                <!-- BUTTONS -->
+                <section id="project-buttons" class="project-section" >
+                    <?php
+                    $buttons = $stored_meta['widget-buttons'][0];
+                    $buttons = explode(";;", $buttons);
+
+                    foreach($buttons as $button){
+                        $this_button = explode(',', $button);
+                        ?>
+
+                        <a href="<?php echo $this_button[1];?>" target="_blank" class="button"><?php echo $this_button[0];?></a>
+                    <?php }?>
+                </section>
+
+
+                <?php
+                echo $args['after_widget'];
+            }
+
+        }
+
+
+
 
             echo $args['after_widget'];
 
