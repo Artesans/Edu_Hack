@@ -520,5 +520,6 @@ function eduhack_data_settings_page() {
     <div class="wrap">
         <h1>Eduhack Projects Data</h1>
         <a href="<?php echo plugins_url('ws-eduhack-data.php', __FILE__);?>" target="_blank">Get data</a>
+        <h4><?php echo plugins_url('ws-eduhack-data.php', __FILE__);?></h4>
     </div>
 <?php }
