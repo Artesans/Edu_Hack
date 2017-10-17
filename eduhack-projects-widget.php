@@ -78,9 +78,9 @@ function projects_meta_callback( $post ) {
             <li><a href="#tabs-team">TEAM</a></li>
             <li><a href="#tabs-description">DESCRIPTION</a></li>
             <li><a href="#tabs-status">STATUS</a></li>
-            <?php if ( current_user_can( 'manage_options' ) ) {?>
+            <?php /*if ( current_user_can( 'manage_options' ) ) {?>
                 <li><a href="#tabs-configuration">CONFIGURATION</a></li>
-            <?php }?>
+            <?php }*/?>
         </ul>
         <div id="tabs-team">
             <section class="team">
@@ -103,12 +103,13 @@ function projects_meta_callback( $post ) {
                             <div>
                                 <label for="meta-text" class="team-label"><?php _e( 'User Name', 'eduhack-projects-widget' )?></label>
                                 <input type="text" name="team[name][]" value="<?php echo $team_name[$i];?>">
+                                <label for="meta-text" class="team-label"><?php _e( 'Center', 'eduhack-projects-widget' )?></label>
+                                <input type="text" name="team[school][]" value="<?php echo $team_school[$i];?>">
                                 <label for="meta-text" class="team-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
                                 <input class="image-url-<?php echo $i;?>" type="hidden" name="team[image][]" value="<?php echo $team_img[$i];?>" />
                                 <input type="button" class="button upload-button button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="image-url-" data-img-src="image-src-"/>
                                 <img src="<?php echo $this_image[0]; ?>" class="team-img image-src-<?php echo $i;?>"/>
-                                <label for="meta-text" class="team-label"><?php _e( 'School', 'eduhack-projects-widget' )?></label>
-                                <input type="text" name="team[school][]" value="<?php echo $team_school[$i];?>"><a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             </div>
                         <?php }?>
 
@@ -116,11 +117,12 @@ function projects_meta_callback( $post ) {
                             <div>
                                 <label for="meta-text" class="team-label"><?php _e( 'User Name', 'eduhack-projects-widget' )?></label>
                                 <input type="text" name="team[name][]">
+                                <label for="meta-text" class="team-label"><?php _e( 'Center', 'eduhack-projects-widget' )?></label>
+                                <input type="text" name="team[school][]">
                                 <label for="meta-text" class="team-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
                                 <input class="image-url-0" type="text" name="team[image][]" />
                                 <input type="button" class="button upload-button" value="Upload Image" data-buttonid="0" data-att-image="image-url-" data-img-src="image-src-"/>
-                                <label for="meta-text" class="team-label"><?php _e( 'School', 'eduhack-projects-widget' )?></label>
-                                <input type="text" name="team[school][]">
+
 
                             </div>
                     <?php }?>
@@ -147,12 +149,12 @@ function projects_meta_callback( $post ) {
                             <div>
                                 <label for="meta-text" class="facilitador-label"><?php _e( 'User Name', 'eduhack-projects-widget' )?></label>
                                 <input type="text" name="facilitador[name][]" value="<?php echo $facilitador_name[$i];?>">
+                                <label for="meta-text" class="facilitador-label"><?php _e( 'Center', 'eduhack-projects-widget' )?></label>
+                                <input type="text" name="facilitador[school][]" value="<?php echo $facilitador_school[$i];?>">
                                 <label for="meta-text" class="facilitador-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
                                 <input class="fac-image-url-<?php echo $i;?>" type="hidden" name="facilitador[image][]" value="<?php echo $facilitador_img[$i];?>" />
                                 <input type="button" class="button upload-button button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>
                                 <img src="<?php echo $this_image[0]; ?>" class="facilitador-img fac-image-src-<?php echo $i;?>"/>
-                                <label for="meta-text" class="facilitador-label"><?php _e( 'School', 'eduhack-projects-widget' )?></label>
-                                <input type="text" name="facilitador[school][]" value="<?php echo $facilitador_school[$i];?>">
                                 <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             </div>
                         <?php }?>
@@ -161,12 +163,12 @@ function projects_meta_callback( $post ) {
                         <div>
                             <label for="meta-text" class="facilitador-label"><?php _e( 'User Name', 'eduhack-projects-widget' )?></label>
                             <input type="text" name="facilitador[name][]">
+                            <label for="meta-text" class="facilitador-label"><?php _e( 'Center', 'eduhack-projects-widget' )?></label>
+                            <input type="text" name="facilitador[school][]">
                             <label for="meta-text" class="facilitador-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
                             <input class="fac-image-url-0" type="hidden" name="facilitador[image][]" />
                             <input type="button" class="button upload-button" value="Upload Image" data-buttonid="0" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>
                             <img src="" class="facilitador-img fac-image-src-0"/>
-                            <label for="meta-text" class="facilitador-label"><?php _e( 'School', 'eduhack-projects-widget' )?></label>
-                            <input type="text" name="facilitador[school][]">
                         </div>
                     <?php }?>
                 </div>
