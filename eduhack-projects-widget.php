@@ -52,6 +52,12 @@ function create_project_posttype() {
 // Hooking up our function to theme setup
 add_action( 'init', 'create_project_posttype' );
 
+//hide content editor
+add_action('init', 'hide_editor_cpt_project');
+function hide_editor_cpt_project() {
+    remove_post_type_support( 'cpt_project', 'editor' );
+}
+
 
 /**
  * Adds a meta box to the post editing screen
