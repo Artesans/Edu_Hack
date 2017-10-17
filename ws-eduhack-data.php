@@ -52,9 +52,35 @@ foreach($posts as $p){
     $result["facilitador_school"] = $facilitador_school;
 
     $result["buttons"] = $stored_meta["widget-buttons"][0];
+
     $status = unserialize($stored_meta["widget-status"][0]);
     $status = unserialize($status);
     $result["status"] = $status;
+
+    $tags1_text = unserialize($stored_meta["widget-tags1_text"][0]);
+    $tags1_text = unserialize($tags1_text);
+    $result["tags1_text"] = $tags1_text;
+
+    $tags1_img = unserialize($stored_meta["widget-tags1_img"][0]);
+    $tags1_img = unserialize($tags1_img);
+    $result["tags1_img"] = $tags1_img;
+
+    $tags1_color = unserialize($stored_meta["widget-tags1_color"][0]);
+    $tags1_color = unserialize($tags1_color);
+    $result["tags1_color"] = $tags1_color;
+
+    $tags2_text = unserialize($stored_meta["widget-tags2_text"][0]);
+    $tags2_text = unserialize($tags2_text);
+    $result["tags2_text"] = $tags2_text;
+
+    $tags2_color = unserialize($stored_meta["widget-tags2_color"][0]);
+    $tags2_color = unserialize($tags2_color);
+    $result["tags2_color"] = $tags2_color;
+
+    $project_img = $stored_meta["widget-project_img"][0];
+    $project_image = wp_get_attachment_image_src( $project_img);
+    $result["project_image"][] = $project_image[0];
+
 
 }
 

@@ -11,6 +11,12 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wporg
 Domain Path: /
 */
+/*
+function plugin_text_domain() {
+    load_plugin_textdomain( 'eduhack-projects-widget', false, 'iese-events/languages' );
+}
+add_action('init', 'plugin_text_domain');
+*/
 
 function eduhack_plugin_scripts() {
     wp_enqueue_script('eduhack-utils', plugins_url('/js/utils.js', __FILE__), array( 'eduhack-color' ), time(), false  );
@@ -72,7 +78,6 @@ add_action( 'add_meta_boxes', 'projects_custom_meta' );
  */
 function projects_meta_callback( $post ) {
     $stored_meta = get_post_meta( $post->ID );
-    //print_r($stored_meta);
 
     $status = unserialize($stored_meta['widget-status'][0]);
     $status = unserialize($status);
@@ -179,6 +184,32 @@ function projects_meta_callback( $post ) {
                     <?php }?>
                 </div>
                 <div class="add_facilitador_field" data-count="<?php echo $i;?>">Add New Field &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></div>
+            </section>
+            <section class="project-image">
+                <h2 class="projects-config"><?php _e("Project Image", 'eduhack-projects-widget');?></h2>
+                <div class="team-container">
+                    <?php if($stored_meta['widget-project_img'][0]!=''){
+
+                            $project_img = $stored_meta['widget-project_img'][0];
+                            $this_image = wp_get_attachment_image_src( $project_img, 'thumbnail' );
+
+                            $button_text = (empty($this_image)) ? __("Upload image", 'eduhack-projects-widget') : __("Change image", 'eduhack-projects-widget');
+                            ?>
+                            <div>
+                                <label for="meta-text" class="project-img-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
+                                <input class="project-image-url-0" type="hidden" name="project-img" value="<?php echo $project_img;?>" />
+                                <input type="button" class="button upload-button button-0" value="<?php echo $button_text;?>" data-buttonid="0" data-att-image="project-image-url-" data-img-src="project-image-src-"/>
+                                <img src="<?php echo $this_image[0]; ?>" class="project-img project-image-src-0"/>
+                            </div>
+
+                    <?php }else{?>
+                        <div>
+                            <input class="project-image-url-0" type="hidden" name="project-img" />
+                            <input type="button" class="button upload-button" value="Upload Image" data-buttonid="0" data-att-image="project-image-url-" data-img-src="project-image-src-"/>
+                            <img src="" class="project-img project-image-src-0"/>
+                        </div>
+                    <?php }?>
+                </div>
             </section>
         </div>
         <div id="tabs-description">
@@ -345,6 +376,11 @@ function projects_meta_save( $post_id ) {
         delete_post_meta($post_id, 'widget-team_name');
         delete_post_meta($post_id, 'widget-team_school');
         delete_post_meta($post_id, 'widget-team_img');
+    }
+    if( isset( $_POST[ 'project-img' ] ) ) {
+        update_post_meta($post_id, 'widget-project_img', sanitize_text_field($_POST['project-img']));
+    }else{
+        delete_post_meta($post_id, 'widget-project_img');
     }
     if( isset( $_POST[ 'facilitador' ] ) ) {
         update_post_meta($post_id, 'widget-facilitador_name', sanitize_text_field(serialize($_POST['facilitador']['name'])));
