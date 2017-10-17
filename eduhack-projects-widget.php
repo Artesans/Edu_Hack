@@ -162,7 +162,7 @@ function projects_meta_callback( $post ) {
                             <label for="meta-text" class="facilitador-label"><?php _e( 'User Name', 'eduhack-projects-widget' )?></label>
                             <input type="text" name="facilitador[name][]">
                             <label for="meta-text" class="facilitador-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
-                            <input class="image-url-0" type="hidden" name="facilitador[image][]" />
+                            <input class="fac-image-url-0" type="hidden" name="facilitador[image][]" />
                             <input type="button" class="button upload-button" value="Upload Image" data-buttonid="0" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>
                             <img src="" class="facilitador-img fac-image-src-0"/>
                             <label for="meta-text" class="facilitador-label"><?php _e( 'School', 'eduhack-projects-widget' )?></label>
@@ -188,22 +188,26 @@ function projects_meta_callback( $post ) {
                 <h2 class="projects-config"><?php _e("Tags", 'eduhack-projects-widget');?></h2>
                 <?php
 
-                //tags group 1
-                $tags1_text = unserialize($stored_meta['widget-config_tags1'][0]);
-                $tags1_text = unserialize($tags1_text);
-                $tags1_color = unserialize($stored_meta['widget-config_color1'][0]);
-                $tags1_color = unserialize($tags1_color);
+                $args = array("hide_empty" => 0,
+                    "type"      => "post",
+                    "orderby"   => "name",
+                    "order"     => "ASC",
+                    "child_of"    => "2"
+                );
+                $tags = get_categories($args);
 
-                //tags group 1
-                $tags2_text = unserialize($stored_meta['widget-config_tags2'][0]);
-                $tags2_text = unserialize($tags2_text);
-                $tags2_color = unserialize($stored_meta['widget-config_color2'][0]);
-                $tags2_color = unserialize($tags2_color);
+                foreach($tags as $tag){
+                    $imatge = get_term_meta( $tag->term_id, 'xtec_image');
+                    if($imatge[0] !='') $tags1[] = $tag;
+                    else $tags2[] = $tag;
+                }
 
                 $selected_tags1_text = unserialize($stored_meta['widget-tags1_text'][0]);
                 $selected_tags1_text = unserialize($selected_tags1_text);
                 $selected_tags1_color = unserialize($stored_meta['widget-tags1_color'][0]);
                 $selected_tags1_color = unserialize($selected_tags1_color);
+                $selected_tags1_img = unserialize($stored_meta['widget-tags1_img'][0]);
+                $selected_tags1_img = unserialize($selected_tags1_img);
 
                 $selected_tags2_text = unserialize($stored_meta['widget-tags2_text'][0]);
                 $selected_tags2_text = unserialize($selected_tags2_text);
@@ -212,37 +216,52 @@ function projects_meta_callback( $post ) {
 
                 ?>
 
-                <?php if(!empty($tags1_text)){?>
+                <?php if(!empty($tags1)){?>
                     <div class="tags1">
-                        <div class="selected-tags1">
-                            <?php if(!empty($selected_tags1_text)){
-                                    for($i=0; $i<count($selected_tags1_text); $i++){?>
-                                        <div class="choosen-tag">
-                                            <span class="color-tag" style="background-color:#<?php echo $selected_tags1_color[$i];?>"></span>
-                                            <input type="text" readonly name="selected_tags_text1[]" value="<?php echo $selected_tags1_text[$i];?>">
-                                            <input type="hidden" name="selected_tags_color1[]" value="<?php echo $selected_tags1_color[$i];?>">
-                                            <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                                        </div>
-                                    <?php }?>
-                            <?php }?>
-                        </div>
                         <label for="meta-text" class="tags1-label"><?php _e( 'Etiquetes destacades', 'eduhack-projects-widget' )?></label>
                         <select>
                             <option value=""><?php _e( 'Select tags', 'eduhack-projects-widget' );?></option>
-                        <?php for($i=0; $i<count($tags1_text); $i++){?>
-                            <option value="<?php echo $i;?>" data-color="<?php echo $tags1_color[$i];?>"><?php echo $tags1_text[$i];?></option>
+                            <?php for($i=0; $i<count($tags1); $i++){
+                                $imatge = get_term_meta( $tags1[$i]->term_id, 'xtec_image');
+                                $color = get_term_meta( $tags1[$i]->term_id, 'xtec_color' );
+                            ?>
+                            <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>"><?php echo $tags1[$i]->name;?></option>
                         <?php }?>
                         </select>
+                        <div class="selected-tags1">
+                            <?php if(!empty($selected_tags1_text)){
+                                for($i=0; $i<count($selected_tags1_text); $i++){?>
+                                    <div class="choosen-tag" style="background-color:<?php echo $selected_tags1_color[$i];?>">
+                                        <!--<span class="color-tag" style="background-color:<?php echo $selected_tags1_color[$i];?>"></span>-->
+                                        <input type="text" readonly name="selected_tags_text1[]" value="<?php echo $selected_tags1_text[$i];?>">
+                                        <input type="hidden" name="selected_tags_color1[]" value="<?php echo $selected_tags1_color[$i];?>">
+                                        <input class="tag-image-url-'+x+'" type="hidden" name="selected_tags_img1[]" value="<?php echo $selected_tags1_img[$i];?>" />
+                                        <img class="tag-image-url" src="<?php echo $selected_tags1_img[$i];?>" />
+                                        <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    </div>
+                                <?php }?>
+                            <?php }?>
+                        </div>
                     </div>
                 <?php }?>
 
-                <?php if(!empty($tags2_text)){?>
+                <?php if(!empty($tags2)){?>
                     <div class="tags2">
+                        <label for="meta-text" class="tags2-label"><?php _e( 'Etiquetes destacades', 'eduhack-projects-widget' )?></label>
+                        <select>
+                            <option value=""><?php _e( 'Select tags', 'eduhack-projects-widget' );?></option>
+                            <?php for($i=0; $i<count($tags2); $i++){
+                                $imatge = get_term_meta( $tags2[$i]->term_id, 'xtec_image');
+                                $color = get_term_meta( $tags2[$i]->term_id, 'xtec_color' );
+                                ?>
+                                <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>"><?php echo $tags2[$i]->name;?></option>
+                            <?php }?>
+                        </select>
                         <div class="selected-tags2">
                             <?php if(!empty($selected_tags2_text)){
                                 for($i=0; $i<count($selected_tags2_text); $i++){?>
                                     <div class="choosen-tag">
-                                        <span class="color-tag" style="background-color:#<?php echo $selected_tags2_color[$i];?>"></span>
+                                        <span class="color-tag" style="background-color:<?php echo $selected_tags2_color[$i];?>"></span>
                                         <input type="text" readonly name="selected_tags_text2[]" value="<?php echo $selected_tags2_text[$i];?>">
                                         <input type="hidden" name="selected_tags_color2[]" value="<?php echo $selected_tags2_color[$i];?>">
                                         <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
@@ -250,13 +269,6 @@ function projects_meta_callback( $post ) {
                                 <?php }?>
                             <?php }?>
                         </div>
-                        <label for="meta-text" class="tags2-label"><?php _e( 'Etiquetes genèriques', 'eduhack-projects-widget' )?></label>
-                        <select>
-                            <option value=""><?php _e( 'Select tags', 'eduhack-projects-widget' );?></option>
-                        <?php for($i=0; $i<count($tags2_text); $i++){?>
-                            <option value="<?php echo $i;?>" data-color="<?php echo $tags2_color[$i];?>"><?php echo $tags2_text[$i];?></option>
-                        <?php }?>
-                        </select>
                     </div>
                 <?php }?>
 
@@ -282,89 +294,6 @@ function projects_meta_callback( $post ) {
                 </div>
             </section>
         </div>
-        <?php /*if ( current_user_can( 'manage_options' ) ) { ?>
-        <div id="tabs-configuration">
-            <section class="configuration-tags1">
-                <h2 class="projects-config"><?php _e("Etiquetes destacades", 'eduhack-projects-widget');?></h2>
-                <div class="config-tags1-container">
-                    <?php if($stored_meta['widget-config_tags1'][0]!=''){
-                        $config_tag_text = unserialize($stored_meta['widget-config_tags1'][0]);
-                        $config_tag_text = unserialize($config_tag_text);
-                        $config_tag_img = unserialize($stored_meta['widget-config_tag_img'][0]);
-                        $config_tag_img = unserialize($config_tag_img);
-                        //$config_tag_color = unserialize($stored_meta['widget-config_color1'][0]);
-                        //$config_tag_color = unserialize($config_tag_color);
-
-                        for ($i=0; $i<count($config_tag_text); $i++){
-                            $this_image = wp_get_attachment_image_src( $config_tag_img[$i], 'thumbnail' );
-
-                            $button_text = (empty($this_image)) ? __("Upload image", 'eduhack-projects-widget') : __("Change image", 'eduhack-projects-widget');
-
-                            ?>
-                            <div>
-                                <input type="text" name="config1[tag-text][]" value="<?php echo $config_tag_text[$i];?>">
-                                <label for="meta-text" class="team-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
-                                <input class="config-image-url-<?php echo $i;?>" type="hidden" name="config1[image][]" value="<?php echo $config_tag_img[$i];?>" />
-                                <input type="button" class="button upload-button button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="config-image-url-" data-img-src="config-image-src-"/>
-                                <img src="<?php echo $this_image[0]; ?>" class="team-img config-image-src-<?php echo $i;?>"/>
-                                <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                            </div>
-                        <?php }?>
-
-                    <?php }else{?>
-                        <div>
-                            <input type="text" name="config1[tag-text][]">
-                            <label for="meta-text" class="team-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
-                            <input class="config-image-url-<?php echo $i;?>" type="hidden" name="config1[image][]" value="<?php echo $team_img[$i];?>" />
-                            <input type="button" class="button upload-button button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="config-image-url-" data-img-src="config-image-src-"/>
-                            <img src="<?php echo $this_image[0]; ?>" class="team-img config-image-src-<?php echo $i;?>"/>
-                        </div>
-                    <?php }?>
-                </div>
-                <div class="add_form_tag1">Add New Tag &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></div>
-            </section>
-            <section class="configuration-tags2">
-                <h2 class="projects-config"><?php _e("Etiquetes genèriques", 'eduhack-projects-widget');?></h2>
-                <div class="config-tags2-container">
-                    <?php if($stored_meta['widget-config_tags2'][0]!=''){
-                        $config_tag_text = unserialize($stored_meta['widget-config_tags2'][0]);
-                        $config_tag_text = unserialize($config_tag_text);
-                        $config_tag_color = unserialize($stored_meta['widget-config_color2'][0]);
-                        $config_tag_color = unserialize($config_tag_color);
-
-                        for ($i=0; $i<count($config_tag_text); $i++){?>
-                            <div>
-                                <input type="text" name="config2[tag-text][]" value="<?php echo $config_tag_text[$i];?>">
-                                <label for="meta-text" class="config-tag-label"><?php _e( 'Color', 'eduhack-projects-widget' )?></label>
-                                <input class="jscolor" value="<?php echo $config_tag_color[$i];?>" name="config2[tag-color][]">
-                                <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                            </div>
-                        <?php }?>
-
-                    <?php }else{?>
-                        <div>
-                            <input type="text" name="config2[tag-text][]">
-                            <label for="meta-text" class="config-tag-label"><?php _e( 'Color', 'eduhack-projects-widget' )?></label>
-                            <input class="jscolor" value="" name="config2[tag-color][]">
-                        </div>
-                    <?php }?>
-                </div>
-                <div class="add_form_tag2">Add New Tag &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></div>
-            </section>
-            <section class="configuration-fase">
-                <h2 class="projects-config"><?php _e("Current Status", 'eduhack-projects-widget');?></h2>
-                <?php $config_current_fase = $stored_meta['widget-config_fase'][0];?>
-
-                <select name="current-fase">
-                    <?php for($i=1; $i<=12; $i++){
-                            $selected = ($config_current_fase == $i)? 'selected' : '';
-                        ?>
-                        <option value="<?php echo $i;?>" <?php echo $selected;?>><?php _e( 'Fase', 'eduhack-projects-widget' )?> <?php echo $i;?></option>
-                    <?php }?>
-                </select>
-            </section>
-        </div>
-        <?php } */?>
     </div>
 
     <?php
@@ -422,6 +351,7 @@ function projects_meta_save( $post_id ) {
     if( isset( $_POST[ 'selected_tags_text1' ] ) ) {
         update_post_meta( $post_id, 'widget-tags1_text', sanitize_text_field(serialize( $_POST[ 'selected_tags_text1' ]) ) );
         update_post_meta( $post_id, 'widget-tags1_color', sanitize_text_field(serialize( $_POST[ 'selected_tags_color1' ]) ) );
+        update_post_meta( $post_id, 'widget-tags1_img', sanitize_text_field(serialize( $_POST[ 'selected_tags_img1' ]) ) );
     }else{
         delete_post_meta($post_id, 'widget-tags1_text');
         delete_post_meta($post_id, 'widget-tags1_color');

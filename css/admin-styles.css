@@ -26,6 +26,7 @@
     line-height: 25px;
     position: relative;
     padding-right: 5px;
+    max-width: 200px;
 }
 
 .choosen-tag input{
@@ -33,6 +34,13 @@
     background-color: transparent;
     border: none;
     box-shadow: none;
+}
+
+.choosen-tag .tag-image-url{
+    width: 100px;
+    height: auto;
+    float: left;
+    display: inline-block;
 }
 
 .delete{

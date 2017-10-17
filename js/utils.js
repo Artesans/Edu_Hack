@@ -17,10 +17,10 @@
             if(x < max_fields){
 
                 $(wrapper).append('<div>'+
-                    '<label for="meta-text" class="team-label">User Name </label>'+
-                    '<input type="text" name="team[name][]">'+
+                    ' <label for="meta-text" class="team-label">User Name </label>'+
+                    ' <input type="text" name="team[name][]">'+
                     ' <label for="meta-text" class="team-label">Image </label>'+
-                    '<input class="image-url-'+x+'" type="hidden" name="team[image][]" />'+
+                    ' <input class="image-url-'+x+'" type="hidden" name="team[image][]" />'+
                     ' <input type="button" class="button upload-button" value="Upload Image" data-buttonid="'+x+'" data-att-image="image-url-" data-img-src="image-src-"/>'+
                     ' <img src="" class="team-img image-src-'+x+'"/>'+
                     ' <label for="meta-text" class="team-label">School </label>'+
@@ -126,12 +126,15 @@
         $(".tags1 select").change(function(){
             var selected_text = $(".tags1 select option:selected").text();
             var selected_color = $(".tags1 select option:selected").attr("data-color");
+            var selected_img = $(".tags1 select option:selected").attr("data-img");
 
-            var tag = '<div class="choosen-tag">'+
-                '<span class="color-tag" style="background-color:#'+selected_color+'"></span>'+
+            var tag = '<div class="choosen-tag" style="background-color:'+selected_color+'">'+
+                '<span class="color-tag" style="background-color:'+selected_color+'"></span>'+
                 '<input type="text" readonly name="selected_tags_text1[]" value="'+selected_text+'">'+
                 '<input type="hidden" name="selected_tags_color1[]" value="'+selected_color+'">'+
+                '<img class="tag-image-url" src="'+selected_img+'" />'+
                 '<a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
+                '<input class="tag-image-url-'+x+'" type="hidden" name="selected_tags_img1[]" value="'+selected_img+'" />'+
                 '</div>';
             $(".selected-tags1").append(tag);
         });
@@ -146,7 +149,7 @@
             var selected_color = $(".tags2 select option:selected").attr("data-color");
 
             var tag = '<div class="choosen-tag">'+
-                '<span class="color-tag" style="background-color:#'+selected_color+'"></span>'+
+                '<span class="color-tag" style="background-color:'+selected_color+'"></span>'+
                 '<input type="text" readonly name="selected_tags_text2[]" value="'+selected_text+'">'+
                 '<input type="hidden" name="selected_tags_color2[]" value="'+selected_color+'">'+
                 '<a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+

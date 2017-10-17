@@ -61,12 +61,15 @@
 
 #project-tags .choosen-tag.tag1 .tag-img{
     display: block;
-    width: 65%;
+    width: 95%;
     text-align: center;
     margin: auto;
 }
 
 #project-tags .choosen-tag .text-tag{
+    padding: 0 5px;
+}
+#project-tags .choosen-tag.tag2 .text-tag{
     padding: 0 15px;
 }
 

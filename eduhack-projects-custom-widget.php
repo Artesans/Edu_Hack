@@ -88,61 +88,72 @@ class wpb_widget extends WP_Widget {
 
 
                 <!-- TAGS -->
-                <section id="project-tags" class="project-section" >
-                    <h3><?php _e("Tags");?></h3>
-                    <?php
+                <?php
                     $selected_tags1_text = unserialize($stored_meta['widget-tags1_text'][0]);
                     $selected_tags1_text = unserialize($selected_tags1_text);
-                    $selected_tags1_img = unserialize($stored_meta['widget-config_tag_img'][0]);
+                    $selected_tags1_img = unserialize($stored_meta['widget-tags1_img'][0]);
                     $selected_tags1_img = unserialize($selected_tags1_img);
+                    $selected_tags1_color = unserialize($stored_meta['widget-tags1_color'][0]);
+                    $selected_tags1_color = unserialize($selected_tags1_color);
 
                     $selected_tags2_text = unserialize($stored_meta['widget-tags2_text'][0]);
                     $selected_tags2_text = unserialize($selected_tags2_text);
                     $selected_tags2_color = unserialize($stored_meta['widget-tags2_color'][0]);
                     $selected_tags2_color = unserialize($selected_tags2_color);
 
-                    if(!empty($selected_tags1_text)){?>
-                        <div class="block-tags">
+                    if(!empty($selected_tags1_text) || !empty($selected_tags2_text)){?>
+                        <section id="project-tags" class="project-section" >
+                            <h3><?php _e("Tags");?></h3>
                             <?php
-                            for($i=0; $i<count($selected_tags1_text); $i++){
-                                $this_image = wp_get_attachment_image_src( $selected_tags1_img[$i], array(100, 100) );
-                                ?>
-                                <div class="choosen-tag tag1">
-                                    <img class="tag-img" src="<?php echo $this_image[0]; ?>"/>
-                                    <span class="text-tag"><?php echo $selected_tags1_text[$i];?></span>
+
+                            if(!empty($selected_tags1_text)){?>
+                                <div class="block-tags">
+                                    <?php
+                                    for($i=0; $i<count($selected_tags1_text); $i++){?>
+                                        <div class="choosen-tag tag1" style="background-color:<?php echo $selected_tags1_color[$i];?>">
+                                            <img class="tag-img" src="<?php echo $selected_tags1_img[$i]; ?>"/>
+                                            <span class="text-tag"><?php echo $selected_tags1_text[$i];?></span>
+                                        </div>
+                                    <?php }?>
+                                </div>
+                            <?php }
+                            if(!empty($selected_tags2_text)){?>
+                                <div class="block-tags">
+                                    <?php
+                                    for($i=0; $i<count($selected_tags2_text); $i++){?>
+                                        <div class="choosen-tag tag2">
+                                            <span class="color-tag" style="background-color:<?php echo $selected_tags2_color[$i];?>"></span>
+                                            <span class="text-tag"><?php echo $selected_tags2_text[$i];?></span>
+                                        </div>
+                                    <?php }?>
                                 </div>
                             <?php }?>
-                        </div>
-                    <?php }
-                    if(!empty($selected_tags2_text)){?>
-                        <div class="block-tags">
-                            <?php
-                            for($i=0; $i<count($selected_tags2_text); $i++){?>
-                                <div class="choosen-tag">
-                                    <span class="color-tag" style="background-color:#<?php echo $selected_tags2_color[$i];?>"></span>
-                                    <span class="text-tag"><?php echo $selected_tags2_text[$i];?></span>
-                                </div>
-                            <?php }?>
-                        </div>
-                    <?php }?>
-                </section>
+                        </section>
+                    <?php
+                    }
+                ?>
+
 
 
 
                 <!-- DESCRIPTION -->
-                <section id="project-description" class="project-section" >
-                    <h3><?php _e("Description");?></h3>
-                    <div class="description"><?php echo $stored_meta['widget-description'][0]; ?></div>
-                    <span class="read-more read-button"><?php _e("Read More");?></span>
-                </section>
+                <?php if(!empty($stored_meta['widget-description'][0])){?>
+                    <section id="project-description" class="project-section" >
+                        <h3><?php _e("Description");?></h3>
+                        <div class="description"><?php echo $stored_meta['widget-description'][0]; ?></div>
+                        <span class="read-more read-button"><?php _e("Read More");?></span>
+                    </section>
+                <?php }?>
 
 
 
                 <!-- TEAM -->
                 <section id="project-team" class="project-section" >
-                    <h3><?php _e("Team");?></h3>
                     <?php
-                    if($stored_meta['widget-team_name'][0]!='') {
+                    if($stored_meta['widget-team_name'][0]!='') {?>
+                        <h3><?php _e("Team");?></h3>
+
+                        <?php
                         $team_name = unserialize($stored_meta['widget-team_name'][0]);
                         $team_name = unserialize($team_name);
                         $team_school = unserialize($stored_meta['widget-team_school'][0]);
@@ -198,27 +209,24 @@ class wpb_widget extends WP_Widget {
                     $buttons = $stored_meta['widget-buttons'][0];
                     $buttons = explode(";;", $buttons);
 
-                    foreach($buttons as $button){
-                        $this_button = explode(',', $button);
-                        ?>
+                    if(!empty($buttons[0])){
+                        foreach($buttons as $button){
+                            $this_button = explode(',', $button);
+                            ?>
 
-                        <a href="<?php echo $this_button[1];?>" target="_blank" class="button"><?php echo $this_button[0];?></a>
-                    <?php }?>
+                            <a href="<?php echo $this_button[1];?>" target="_blank" class="button"><?php echo $this_button[0];?></a>
+                        <?php }
+                    }
+                    ?>
                 </section>
 
 
                 <?php
                 echo $args['after_widget'];
             }
-
         }
 
-
-
-
-            echo $args['after_widget'];
-
-
+        echo $args['after_widget'];
 
     }
 
