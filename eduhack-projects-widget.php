@@ -227,11 +227,13 @@ function projects_meta_callback( $post ) {
                 <h2 class="projects-config"><?php _e("Tags", 'eduhack-projects-widget');?></h2>
                 <?php
 
+                $tag_category = get_category_by_slug( 'tags' );
+
                 $args = array("hide_empty" => 0,
                     "type"      => "post",
                     "orderby"   => "name",
                     "order"     => "ASC",
-                    "child_of"    => "2"
+                    "child_of"    => $tag_category->term_id
                 );
                 $tags = get_categories($args);
 
