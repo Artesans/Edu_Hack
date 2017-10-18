@@ -109,10 +109,15 @@ class wpb_widget extends WP_Widget {
                             if(!empty($selected_tags1_text)){?>
                                 <div class="block-tags">
                                     <?php
-                                    for($i=0; $i<count($selected_tags1_text); $i++){?>
+                                    for($i=0; $i<count($selected_tags1_text); $i++){
+                                        $this_category = get_cat_ID($selected_tags1_text[$i]);
+                                        $category_link = get_category_link( $this_category );
+                                        ?>
                                         <div class="choosen-tag tag1" style="background-color:<?php echo $selected_tags1_color[$i];?>">
-                                            <img class="tag-img" src="<?php echo $selected_tags1_img[$i]; ?>"/>
-                                            <span class="text-tag"><?php echo $selected_tags1_text[$i];?></span>
+                                            <a href="<?php echo $category_link;?>">
+                                                <img class="tag-img" src="<?php echo $selected_tags1_img[$i]; ?>"/>
+                                                <span class="text-tag"><?php echo $selected_tags1_text[$i];?></span>
+                                            </a>
                                         </div>
                                     <?php }?>
                                 </div>
@@ -120,10 +125,15 @@ class wpb_widget extends WP_Widget {
                             if(!empty($selected_tags2_text)){?>
                                 <div class="block-tags">
                                     <?php
-                                    for($i=0; $i<count($selected_tags2_text); $i++){?>
+                                    for($i=0; $i<count($selected_tags2_text); $i++){
+                                        $this_category = get_cat_ID($selected_tags2_text[$i]);
+                                        $category_link = get_category_link( $this_category);
+                                        ?>
                                         <div class="choosen-tag tag2">
-                                            <span class="color-tag" style="background-color:<?php echo $selected_tags2_color[$i];?>"></span>
-                                            <span class="text-tag"><?php echo $selected_tags2_text[$i];?></span>
+                                            <a href="<?php echo $category_link;?>">
+                                                <span class="color-tag" style="background-color:<?php echo $selected_tags2_color[$i];?>"></span>
+                                                <span class="text-tag"><?php echo $selected_tags2_text[$i];?></span>
+                                            </a>
                                         </div>
                                     <?php }?>
                                 </div>

@@ -63,6 +63,10 @@
     max-width: 80px;
 }
 
+#project-tags .choosen-tag.tag1{
+    text-align: center;
+}
+
 #project-tags .choosen-tag.tag1 .tag-img{
     display: block;
     width: 95%;
@@ -75,6 +79,10 @@
 }
 #project-tags .choosen-tag.tag2 .text-tag{
     padding: 0 15px;
+}
+
+#project-tags .choosen-tag a{
+    color: #333;
 }
 
 #project-description .description{
@@ -147,6 +155,10 @@
 .current{
     padding-bottom: 30px;
     border-bottom: 3px solid black;
+}
+
+#project-buttons{
+    margin-bottom: 30px;
 }
 
 #project-buttons .button{
