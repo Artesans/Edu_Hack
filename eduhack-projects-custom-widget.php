@@ -31,7 +31,7 @@ class wpb_widget extends WP_Widget {
 
 // Creating widget front-end
 
-    public function widget( $args, $instance ) {
+    public function widget( $widget_args, $instance ) {
         //global $post;
 
 
@@ -55,9 +55,9 @@ class wpb_widget extends WP_Widget {
                 $title = apply_filters( 'widget_title', $instance['title'] );
 
 // before and after widget arguments are defined by themes
-                echo $args['before_widget'];
+                echo $widget_args['before_widget'];
                 if ( ! empty( $title ) )
-                    echo $args['before_title'] . $title . $args['after_title'];
+                    echo $widget_args['before_title'] . $title . $widget_args['after_title'];
 
                 ?>
 
@@ -232,11 +232,11 @@ class wpb_widget extends WP_Widget {
 
 
                 <?php
-                echo $args['after_widget'];
+                echo $widget_args['after_widget'];
             }
         }
 
-        echo $args['after_widget'];
+        //echo $args['after_widget'];
 
     }
 

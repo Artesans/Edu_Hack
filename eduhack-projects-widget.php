@@ -49,7 +49,10 @@ function create_project_posttype() {
                 'singular_name' => __( 'Project' )
             ),
             'public' => true,
-            'has_archive' => true,
+            'has_archive' => false,
+            'exclude_from_search' => true,
+            'publicly_queryable' => false,
+            'show_in_nav_menus' => false,
             'menu_icon'   => 'dashicons-clipboard',
         )
     );
@@ -187,7 +190,7 @@ function projects_meta_callback( $post ) {
             </section>
             <section class="project-image">
                 <h2 class="projects-config"><?php _e("Project Image", 'eduhack-projects-widget');?></h2>
-                <div class="team-container">
+                <div class="project-img-container">
                     <?php if($stored_meta['widget-project_img'][0]!=''){
 
                             $project_img = $stored_meta['widget-project_img'][0];
@@ -451,7 +454,7 @@ function makeFileSafe($filePath)
 
 include( plugin_dir_path( __FILE__ ) . '/eduhack-projects-custom-widget.php');
 
-
+/*
 function change_post_type_template()
 {
     global $post;
@@ -464,6 +467,7 @@ function change_post_type_template()
     return $single_template;
 }
 add_filter( 'single_template', 'change_post_type_template' );
+*/
 
 //include( plugin_dir_path( __FILE__ ) . '/single-cpt_project.php');
 
