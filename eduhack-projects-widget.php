@@ -456,24 +456,6 @@ function makeFileSafe($filePath)
 
 include( plugin_dir_path( __FILE__ ) . '/eduhack-projects-custom-widget.php');
 
-/*
-function change_post_type_template()
-{
-    global $post;
-
-    if ($post->post_type == 'cpt_project')
-    {
-        $single_template = plugin_dir_path( __FILE__ ) . 'single-cpt_project.php';
-    }
-
-    return $single_template;
-}
-add_filter( 'single_template', 'change_post_type_template' );
-*/
-
-//include( plugin_dir_path( __FILE__ ) . '/single-cpt_project.php');
-
-
 
 // Create WS link
 
