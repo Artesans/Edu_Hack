@@ -8,15 +8,17 @@ Author:      Artesans
 Author URI:  www.artesans.eu
 License:     GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: wporg
-Domain Path: /
+Text Domain: eduhack-projects-widget
+Domain Path: /languages
 */
-/*
-function plugin_text_domain() {
-    load_plugin_textdomain( 'eduhack-projects-widget', false, 'iese-events/languages' );
+
+
+function my_plugin_load_plugin_textdomain() {
+    load_plugin_textdomain( 'eduhack-projects-widget', FALSE, dirname( plugin_basename(__FILE__) ) . '/languages/' );
 }
-add_action('init', 'plugin_text_domain');
-*/
+add_action( 'plugins_loaded', 'my_plugin_load_plugin_textdomain' );
+
+
 
 function eduhack_plugin_scripts() {
     wp_enqueue_script('eduhack-utils', plugins_url('/js/utils.js', __FILE__), array( 'eduhack-color' ), time(), false  );
@@ -89,16 +91,16 @@ function projects_meta_callback( $post ) {
 
     <div id="tabs">
         <ul>
-            <li><a href="#tabs-team">TEAM</a></li>
-            <li><a href="#tabs-description">DESCRIPTION</a></li>
-            <li><a href="#tabs-status">STATUS</a></li>
+            <li><a href="#tabs-team"><?php _e("Equip", 'eduhack-projects-widget');?></a></li>
+            <li><a href="#tabs-description"><?php _e("Descripció", 'eduhack-projects-widget');?></a></li>
+            <li><a href="#tabs-status"><?php _e("Estat", 'eduhack-projects-widget');?></a></li>
             <?php /*if ( current_user_can( 'manage_options' ) ) {?>
                 <li><a href="#tabs-configuration">CONFIGURATION</a></li>
             <?php }*/?>
         </ul>
         <div id="tabs-team">
             <section class="team">
-                <h2 class="projects-config"><?php _e("Team", 'eduhack-projects-widget');?></h2>
+                <h2 class="projects-config"><?php _e("Equip", 'eduhack-projects-widget');?></h2>
                 <div class="team-container">
                     <?php if($stored_meta['widget-team_name'][0]!=''){
                         $i = 0;
@@ -112,14 +114,14 @@ function projects_meta_callback( $post ) {
                         for ($i=0; $i<count($team_name); $i++){
                             $this_image = wp_get_attachment_image_src( $team_img[$i], 'thumbnail' );
 
-                            $button_text = (empty($this_image)) ? __("Upload image", 'eduhack-projects-widget') : __("Change image", 'eduhack-projects-widget');
+                            $button_text = (empty($this_image)) ? __("Pujar imatge", 'eduhack-projects-widget') : __("Canviar imatge", 'eduhack-projects-widget');
                             ?>
                             <div>
-                                <label for="meta-text" class="team-label"><?php _e( 'User Name', 'eduhack-projects-widget' )?></label>
+                                <label for="meta-text" class="team-label"><?php _e( 'Nom', 'eduhack-projects-widget' )?></label>
                                 <input type="text" name="team[name][]" value="<?php echo $team_name[$i];?>">
-                                <label for="meta-text" class="team-label"><?php _e( 'Center', 'eduhack-projects-widget' )?></label>
+                                <label for="meta-text" class="team-label"><?php _e( 'Centre', 'eduhack-projects-widget' )?></label>
                                 <input type="text" name="team[school][]" value="<?php echo $team_school[$i];?>">
-                                <label for="meta-text" class="team-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
+                                <label for="meta-text" class="team-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
                                 <input class="image-url-<?php echo $i;?>" type="hidden" name="team[image][]" value="<?php echo $team_img[$i];?>" />
                                 <input type="button" class="button upload-button button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="image-url-" data-img-src="image-src-"/>
                                 <img src="<?php echo $this_image[0]; ?>" class="team-img image-src-<?php echo $i;?>"/>
@@ -129,19 +131,19 @@ function projects_meta_callback( $post ) {
 
                     <?php }else{?>
                             <div>
-                                <label for="meta-text" class="team-label"><?php _e( 'User Name', 'eduhack-projects-widget' )?></label>
+                                <label for="meta-text" class="team-label"><?php _e( 'Nom', 'eduhack-projects-widget' )?></label>
                                 <input type="text" name="team[name][]">
-                                <label for="meta-text" class="team-label"><?php _e( 'Center', 'eduhack-projects-widget' )?></label>
+                                <label for="meta-text" class="team-label"><?php _e( 'Centre', 'eduhack-projects-widget' )?></label>
                                 <input type="text" name="team[school][]">
-                                <label for="meta-text" class="team-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
-                                <input class="image-url-0" type="text" name="team[image][]" />
+                                <label for="meta-text" class="team-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
+                                <input class="image-url-0" type="hidden" name="team[image][]" />
+                                <img src="" class="team-img image-src-0"/>
                                 <input type="button" class="button upload-button" value="Upload Image" data-buttonid="0" data-att-image="image-url-" data-img-src="image-src-"/>
-
 
                             </div>
                     <?php }?>
                 </div>
-                <div class="add_form_field" data-count="<?php echo $i;?>">Add New Field &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></div>
+                <div class="add_form_field" data-count="<?php echo $i;?>"><?php _e("Afegir-ne més", 'eduhack-projects-widget');?>&nbsp;&nbsp;<span style="font-size:16px; font-weight:bold;">+ </span></div>
             </section>
             <section class="facilitadors">
                 <h2 class="projects-config"><?php _e("Facilitadors", 'eduhack-projects-widget');?></h2>
@@ -158,14 +160,14 @@ function projects_meta_callback( $post ) {
                         for ($i=0; $i<count($facilitador_name); $i++){
                             $this_image = wp_get_attachment_image_src( $facilitador_img[$i], 'thumbnail' );
 
-                            $button_text = (empty($this_image)) ? __("Upload image", 'eduhack-projects-widget') : __("Change image", 'eduhack-projects-widget');
+                            $button_text = (empty($this_image)) ? __("Pujar imatge", 'eduhack-projects-widget') : __("Canviar imatge", 'eduhack-projects-widget');
                             ?>
                             <div>
-                                <label for="meta-text" class="facilitador-label"><?php _e( 'User Name', 'eduhack-projects-widget' )?></label>
+                                <label for="meta-text" class="facilitador-label"><?php _e( 'Nom', 'eduhack-projects-widget' )?></label>
                                 <input type="text" name="facilitador[name][]" value="<?php echo $facilitador_name[$i];?>">
-                                <label for="meta-text" class="facilitador-label"><?php _e( 'Center', 'eduhack-projects-widget' )?></label>
+                                <label for="meta-text" class="facilitador-label"><?php _e( 'Centre', 'eduhack-projects-widget' )?></label>
                                 <input type="text" name="facilitador[school][]" value="<?php echo $facilitador_school[$i];?>">
-                                <label for="meta-text" class="facilitador-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
+                                <label for="meta-text" class="facilitador-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
                                 <input class="fac-image-url-<?php echo $i;?>" type="hidden" name="facilitador[image][]" value="<?php echo $facilitador_img[$i];?>" />
                                 <input type="button" class="button upload-button button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>
                                 <img src="<?php echo $this_image[0]; ?>" class="facilitador-img fac-image-src-<?php echo $i;?>"/>
@@ -175,31 +177,31 @@ function projects_meta_callback( $post ) {
 
                     <?php }else{?>
                         <div>
-                            <label for="meta-text" class="facilitador-label"><?php _e( 'User Name', 'eduhack-projects-widget' )?></label>
+                            <label for="meta-text" class="facilitador-label"><?php _e( 'Nom', 'eduhack-projects-widget' )?></label>
                             <input type="text" name="facilitador[name][]">
-                            <label for="meta-text" class="facilitador-label"><?php _e( 'Center', 'eduhack-projects-widget' )?></label>
+                            <label for="meta-text" class="facilitador-label"><?php _e( 'Centre', 'eduhack-projects-widget' )?></label>
                             <input type="text" name="facilitador[school][]">
-                            <label for="meta-text" class="facilitador-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
+                            <label for="meta-text" class="facilitador-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
                             <input class="fac-image-url-0" type="hidden" name="facilitador[image][]" />
                             <input type="button" class="button upload-button" value="Upload Image" data-buttonid="0" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>
                             <img src="" class="facilitador-img fac-image-src-0"/>
                         </div>
                     <?php }?>
                 </div>
-                <div class="add_facilitador_field" data-count="<?php echo $i;?>">Add New Field &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></div>
+                <div class="add_facilitador_field" data-count="<?php echo $i;?>"><?php _e("Afegir-ne més", 'eduhack-projects-widget');?>&nbsp;&nbsp;<span style="font-size:16px; font-weight:bold;">+ </span></div>
             </section>
             <section class="project-image">
-                <h2 class="projects-config"><?php _e("Project Image", 'eduhack-projects-widget');?></h2>
+                <h2 class="projects-config"><?php _e("Imatge del projecte", 'eduhack-projects-widget');?></h2>
                 <div class="project-img-container">
                     <?php if($stored_meta['widget-project_img'][0]!=''){
 
                             $project_img = $stored_meta['widget-project_img'][0];
                             $this_image = wp_get_attachment_image_src( $project_img, 'thumbnail' );
 
-                            $button_text = (empty($this_image)) ? __("Upload image", 'eduhack-projects-widget') : __("Change image", 'eduhack-projects-widget');
+                            $button_text = (empty($this_image)) ? __("Pujar imatge", 'eduhack-projects-widget') : __("Canviar imatge", 'eduhack-projects-widget');
                             ?>
                             <div>
-                                <label for="meta-text" class="project-img-label"><?php _e( 'Image', 'eduhack-projects-widget' )?></label>
+                                <label for="meta-text" class="project-img-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
                                 <input class="project-image-url-0" type="hidden" name="project-img" value="<?php echo $project_img;?>" />
                                 <input type="button" class="button upload-button button-0" value="<?php echo $button_text;?>" data-buttonid="0" data-att-image="project-image-url-" data-img-src="project-image-src-"/>
                                 <img src="<?php echo $this_image[0]; ?>" class="project-img project-image-src-0"/>
@@ -217,7 +219,7 @@ function projects_meta_callback( $post ) {
         </div>
         <div id="tabs-description">
             <section class="description">
-                <h2 class="projects-config"><?php _e("Description", 'eduhack-projects-widget');?></h2>
+                <h2 class="projects-config"><?php _e("Descripció", 'eduhack-projects-widget');?></h2>
                 <?php
                 $content = ( isset ( $stored_meta['widget-description'] ) ) ? $stored_meta['widget-description'][0] : '';
                 $editor_id = 'description';
@@ -227,7 +229,7 @@ function projects_meta_callback( $post ) {
 
             </section>
             <section>
-                <h2 class="projects-config"><?php _e("Tags", 'eduhack-projects-widget');?></h2>
+                <h2 class="projects-config"><?php _e("Etiquetes", 'eduhack-projects-widget');?></h2>
                 <?php
 
                 $tag_category = get_category_by_slug( 'tags' );
@@ -264,7 +266,7 @@ function projects_meta_callback( $post ) {
                     <div class="tags1">
                         <label for="meta-text" class="tags1-label"><?php _e( 'Etiquetes destacades', 'eduhack-projects-widget' )?></label>
                         <select>
-                            <option value=""><?php _e( 'Select tags', 'eduhack-projects-widget' );?></option>
+                            <option value=""><?php _e( 'Seleccionar etiquetes', 'eduhack-projects-widget' );?></option>
                             <?php for($i=0; $i<count($tags1); $i++){
                                 $imatge = get_term_meta( $tags1[$i]->term_id, 'xtec_image');
                                 $color = get_term_meta( $tags1[$i]->term_id, 'xtec_color' );
@@ -293,7 +295,7 @@ function projects_meta_callback( $post ) {
                     <div class="tags2">
                         <label for="meta-text" class="tags2-label"><?php _e( 'Etiquetes destacades', 'eduhack-projects-widget' )?></label>
                         <select>
-                            <option value=""><?php _e( 'Select tags', 'eduhack-projects-widget' );?></option>
+                            <option value=""><?php _e( 'Seleccionar etiquetes', 'eduhack-projects-widget' );?></option>
                             <?php for($i=0; $i<count($tags2); $i++){
                                 $imatge = get_term_meta( $tags2[$i]->term_id, 'xtec_image');
                                 $color = get_term_meta( $tags2[$i]->term_id, 'xtec_color' );
@@ -318,7 +320,7 @@ function projects_meta_callback( $post ) {
 
             </section>
             <section>
-                <h2 class="projects-config"><?php _e("Buttons", 'eduhack-projects-widget');?></h2>
+                <h2 class="projects-config"><?php _e("Botons", 'eduhack-projects-widget');?></h2>
                 <div class="buttons">
                     <textarea rows="10" cols="50" name="buttons" ><?php if ( isset ( $stored_meta['widget-buttons'] ) ) echo $stored_meta['widget-buttons'][0]; ?></textarea>
                 </div>
@@ -326,7 +328,7 @@ function projects_meta_callback( $post ) {
         </div>
         <div id="tabs-status">
             <section>
-                <h2 class="projects-config"><?php _e("Status", 'eduhack-projects-widget');?></h2>
+                <h2 class="projects-config"><?php _e("Estat", 'eduhack-projects-widget');?></h2>
                 <div class="status">
                     <?php for($s=1; $s<=4; $s++){
                         $checked = (in_array((string)$s, $status, true)) ? 'checked' : '';

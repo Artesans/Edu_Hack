@@ -17,14 +17,14 @@
             if(x < max_fields){
 
                 $(wrapper).append('<div>'+
-                    ' <label for="meta-text" class="team-label">User Name </label>'+
+                    ' <label for="meta-text" class="team-label">Nom </label>'+
                     ' <input type="text" name="team[name][]">'+
-                    ' <label for="meta-text" class="team-label">Image </label>'+
+                    ' <label for="meta-text" class="team-label">Centre </label>'+
+                    ' <input type="text" name="team[school][]">'+
+                    ' <label for="meta-text" class="team-label">Imatge  </label>'+
                     ' <input class="image-url-'+x+'" type="hidden" name="team[image][]" />'+
                     ' <input type="button" class="button upload-button" value="Upload Image" data-buttonid="'+x+'" data-att-image="image-url-" data-img-src="image-src-"/>'+
-                    ' <img src="" class="team-img image-src-'+x+'"/>'+
-                    ' <label for="meta-text" class="team-label">School </label>'+
-                    ' <input type="text" name="team[school][]"><a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
+                    ' <img src="" class="team-img image-src-'+x+'"/><a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
                     '</div>'); //add input box
 
                 x++;
@@ -46,14 +46,14 @@
             if(x < max_fields){
 
                 $(".facilitador-container").append('<div>'+
-                    '<label for="meta-text" class="facilitador-label">User Name</label>'+
-                    '<input type="text" name="facilitador[name][]">'+
-                    '<label for="meta-text" class="facilitador-label">Image</label>'+
-                    '<input class="fac-image-url-'+x+'" type="hidden" name="facilitador[image][]" />'+
-                    '<input type="button" class="button upload-button" value="Upload Image" data-buttonid="'+x+'" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>'+
-                    '<img src="" class="team-img facilitador-img fac-image-src-'+x+'"/>'+
-                    '<label for="meta-text" class="facilitador-label">School</label>'+
-                    '<input type="text" name="facilitador[school][]">'+
+                    ' <label for="meta-text" class="facilitador-label">Nom </label>'+
+                    ' <input type="text" name="facilitador[name][]">'+
+                    ' <label for="meta-text" class="facilitador-label">Centre </label>'+
+                    ' <input type="text" name="facilitador[school][]">'+
+                    ' <label for="meta-text" class="facilitador-label">Imatge  </label>'+
+                    ' <input class="fac-image-url-'+x+'" type="hidden" name="facilitador[image][]" />'+
+                    ' <input type="button" class="button upload-button" value="Upload Image" data-buttonid="'+x+'" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>'+
+                    ' <img src="" class="team-img facilitador-img fac-image-src-'+x+'"/>'+
                     '<a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
                     '</div>'); //add input box
                 x++;
@@ -76,7 +76,7 @@
 
                 $(".config-tags1-container").append('<div>'+
                     '<input type="text" name="config1[tag-text][]" value="">'+
-                    '<label for="meta-text" class="team-label">Image</label>'+
+                    '<label for="meta-text" class="team-label">Imatge</label>'+
                     '<input class="config-image-url-'+x+'" type="hidden" name="config1[image][]" value="" />'+
                     '<input type="button" class="button upload-button button-'+x+'" value="Upload Image" data-buttonid="'+x+'" data-att-image="config-image-url-" data-img-src="config-image-src-"/>'+
                     '<img src="" class="team-img config-image-src-'+x+'"/>'+

@@ -63,7 +63,7 @@ class wpb_widget extends WP_Widget {
 
                 <!-- STATUS -->
                 <section id="project-status" class="project-section" >
-                    <h3><?php _e("Status");?></h3>
+                    <h3><?php _e("Estat", 'eduhack-projects-widget');?></h3>
                     <div class="checkout-wrap">
                         <ul class="checkout-bar">
                             <?php
@@ -103,7 +103,7 @@ class wpb_widget extends WP_Widget {
 
                     if(!empty($selected_tags1_text) || !empty($selected_tags2_text)){?>
                         <section id="project-tags" class="project-section" >
-                            <h3><?php _e("Tags");?></h3>
+                            <h3><?php _e("Etiquetes", 'eduhack-projects-widget');?></h3>
                             <?php
 
                             if(!empty($selected_tags1_text)){?>
@@ -149,7 +149,7 @@ class wpb_widget extends WP_Widget {
                 <!-- DESCRIPTION -->
                 <?php if(!empty($stored_meta['widget-description'][0])){?>
                     <section id="project-description" class="project-section" >
-                        <h3><?php _e("Description");?></h3>
+                        <h3><?php _e("Descripció", 'eduhack-projects-widget');?></h3>
                         <div class="description"><?php echo $stored_meta['widget-description'][0]; ?></div>
                         <span class="read-more read-button"><?php _e("Read More");?></span>
                     </section>
@@ -161,7 +161,7 @@ class wpb_widget extends WP_Widget {
                 <section id="project-team" class="project-section" >
                     <?php
                     if($stored_meta['widget-team_name'][0]!='') {?>
-                        <h3><?php _e("Team");?></h3>
+                        <h3><?php _e("Equip", 'eduhack-projects-widget');?></h3>
 
                         <?php
                         $team_name = unserialize($stored_meta['widget-team_name'][0]);
