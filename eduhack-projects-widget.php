@@ -300,7 +300,7 @@ function projects_meta_callback( $post ) {
                             <?php for($i=0; $i<count($tags2); $i++){
                                 $imatge = get_term_meta( $tags2[$i]->term_id, 'xtec_image');
                                 $color = get_term_meta( $tags2[$i]->term_id, 'xtec_color' );
-                                $disabled = ( in_array($tags1[$i]->name, $selected_tags1_text) )? 'disabled' : '';
+                                $disabled = ( in_array($tags2[$i]->name, $selected_tags2_text) )? 'disabled' : '';
                                 ?>
                                 <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>" <?php echo $disabled;?> ><?php echo $tags2[$i]->name;?></option>
                             <?php }?>
