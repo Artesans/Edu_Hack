@@ -1,12 +1,12 @@
 <?php
 /**
 Plugin Name: Eduhack Projects Widget
-Plugin URI:  www.artesans.eu
-Description: Basic WordPress Plugin Header Comment
+Plugin URI:  http://mschools.mobileworldcapital.com/es/iniciativas/edu_hack/
+Description: Crea un giny sobre un projecte d'Edu_Hack
 Version:     1.0
 Author:      Artesans
-Author URI:  www.artesans.eu
-License:     GPL2
+Author URI:  https://www.artesans.eu/
+License:     GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: eduhack-projects-widget
 Domain Path: /languages
