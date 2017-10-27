@@ -59,7 +59,6 @@
 }
 
 #project-tags .choosen-tag.tag1{
-    background-color: #cbcbcb;
     max-width: 80px;
 }
 
@@ -76,6 +75,7 @@
 
 #project-tags .choosen-tag .text-tag{
     padding: 0 5px;
+    color: black;
 }
 #project-tags .choosen-tag.tag2 .text-tag{
     padding: 0 15px;
@@ -113,45 +113,7 @@
     padding-top: 10px;
     font-weight: 800;
 }
-/*
-#project-status .project-fase{
-    width: 7%;
-    height: 7px;
-    display: inline-block;
-}
 
-#project-status .project-fase-container{
-
-}
-
-.fase{
-    width: 24%;
-    display: inline-block;
-    border-radius: 25px;}
-.fase-separator{
-    width: 100%;
-    display: inline-block;
-    background-color: #333333;
-    height: 2px;
-}
-.fase.done{background-color: #19cf27;}
-.fase.missing{background-color: #dddddd;}
-
-
-.missing{background-color: #dddddd;}
-.fase-1.done{ background-color: #fff255;}
-.fase-2.done{ background-color: #ffb925;}
-.fase-3.done{ background-color: #ff6f2d;}
-.fase-4.done{ background-color: #ff2a37;}
-.fase-5.done{ background-color: #ff4aaf;}
-.fase-6.done{ background-color: #d57eff;}
-.fase-7.done{ background-color: #5f41ff;}
-.fase-8.done{ background-color: #81a9ff;}
-.fase-9.done{ background-color: #5ce1ff;}
-.fase-10.done{ background-color: #1eebbd;}
-.fase-11.done{ background-color: #19cf27;}
-.fase-12.done{ background-color: #9ffe22;}
-*/
 .current{
     padding-bottom: 30px;
     border-bottom: 3px solid black;

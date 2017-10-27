@@ -47,8 +47,8 @@ function create_project_posttype() {
         // CPT Options
         array(
             'labels' => array(
-                'name' => __( 'Projects' ),
-                'singular_name' => __( 'Project' )
+                'name' => __( 'Projectes' ),
+                'singular_name' => __( 'Projecte' )
             ),
             'public' => true,
             'has_archive' => false,
@@ -102,8 +102,8 @@ function projects_meta_callback( $post ) {
             <section class="team">
                 <h2 class="projects-config"><?php _e("Equip", 'eduhack-projects-widget');?></h2>
                 <div class="team-container">
+                    <?php $i = 1;?>
                     <?php if($stored_meta['widget-team_name'][0]!=''){
-                        $i = 0;
                         $team_name = unserialize($stored_meta['widget-team_name'][0]);
                         $team_name = unserialize($team_name);
                         $team_img = unserialize($stored_meta['widget-team_img'][0]);
@@ -128,7 +128,6 @@ function projects_meta_callback( $post ) {
                                 <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             </div>
                         <?php }?>
-
                     <?php }else{?>
                             <div>
                                 <label for="meta-text" class="team-label"><?php _e( 'Nom', 'eduhack-projects-widget' )?></label>
@@ -266,12 +265,14 @@ function projects_meta_callback( $post ) {
                     <div class="tags1">
                         <label for="meta-text" class="tags1-label"><?php _e( 'Etiquetes destacades', 'eduhack-projects-widget' )?></label>
                         <select>
-                            <option value=""><?php _e( 'Seleccionar etiquetes', 'eduhack-projects-widget' );?></option>
+                            <option value="" ><?php _e( 'Seleccionar etiquetes', 'eduhack-projects-widget' );?></option>
                             <?php for($i=0; $i<count($tags1); $i++){
                                 $imatge = get_term_meta( $tags1[$i]->term_id, 'xtec_image');
                                 $color = get_term_meta( $tags1[$i]->term_id, 'xtec_color' );
+                                $disabled = ( in_array($tags1[$i]->name, $selected_tags1_text) )? 'disabled' : '';
+
                             ?>
-                            <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>"><?php echo $tags1[$i]->name;?></option>
+                            <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>" <?php echo $disabled;?> ><?php echo $tags1[$i]->name;?></option>
                         <?php }?>
                         </select>
                         <div class="selected-tags1">
@@ -293,14 +294,15 @@ function projects_meta_callback( $post ) {
 
                 <?php if(!empty($tags2)){?>
                     <div class="tags2">
-                        <label for="meta-text" class="tags2-label"><?php _e( 'Etiquetes destacades', 'eduhack-projects-widget' )?></label>
+                        <label for="meta-text" class="tags2-label"><?php _e( 'Etiquetes', 'eduhack-projects-widget' )?></label>
                         <select>
                             <option value=""><?php _e( 'Seleccionar etiquetes', 'eduhack-projects-widget' );?></option>
                             <?php for($i=0; $i<count($tags2); $i++){
                                 $imatge = get_term_meta( $tags2[$i]->term_id, 'xtec_image');
                                 $color = get_term_meta( $tags2[$i]->term_id, 'xtec_color' );
+                                $disabled = ( in_array($tags1[$i]->name, $selected_tags1_text) )? 'disabled' : '';
                                 ?>
-                                <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>"><?php echo $tags2[$i]->name;?></option>
+                                <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>" <?php echo $disabled;?> ><?php echo $tags2[$i]->name;?></option>
                             <?php }?>
                         </select>
                         <div class="selected-tags2">

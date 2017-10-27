@@ -15,6 +15,12 @@ msgstr ""
 "PO-Revision-Date: \n"
 "X-Poedit-SearchPath-0: .\n"
 
+msgid "Projectes"
+msgstr "Projects"
+
+msgid "Projecte"
+msgstr "Project"
+
 msgid "Equip"
 msgstr "Team"
 

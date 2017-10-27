@@ -15,7 +15,6 @@
             var count = $(this).attr("data-count");
             x = count;
             if(x < max_fields){
-
                 $(wrapper).append('<div>'+
                     ' <label for="meta-text" class="team-label">Nom </label>'+
                     ' <input type="text" name="team[name][]">'+
@@ -28,6 +27,7 @@
                     '</div>'); //add input box
 
                 x++;
+                $(this).attr("data-count", x);
                 setButtonClick();
             }
             else
@@ -124,11 +124,13 @@
         })
 
         $(".tags1 select").change(function(){
+            $(".tags1 select option:first-child").attr("disabled", true);
+            var selected_value = $(".tags1 select option:selected").val();
             var selected_text = $(".tags1 select option:selected").text();
             var selected_color = $(".tags1 select option:selected").attr("data-color");
             var selected_img = $(".tags1 select option:selected").attr("data-img");
 
-            var tag = '<div class="choosen-tag" style="background-color:'+selected_color+'">'+
+            var tag = '<div class="choosen-tag" style="background-color:'+selected_color+'" data-option="'+selected_value+'">'+
                 '<span class="color-tag" style="background-color:'+selected_color+'"></span>'+
                 '<input type="text" readonly name="selected_tags_text1[]" value="'+selected_text+'">'+
                 '<input type="hidden" name="selected_tags_color1[]" value="'+selected_color+'">'+
@@ -137,29 +139,43 @@
                 '<input class="tag-image-url-'+x+'" type="hidden" name="selected_tags_img1[]" value="'+selected_img+'" />'+
                 '</div>';
             $(".selected-tags1").append(tag);
+            $(".tags1 select option:selected").attr("disabled", true);
         });
 
 
         $(".selected-tags1").on("click",".delete", function(e){
+            var option_value = $(this).parent().attr("data-option");
             e.preventDefault(); $(this).parent('div').remove();
+            $(".tags1 select option").each(function(){
+                if($(this).val() == option_value) $(this).attr("disabled", false);
+            })
         })
 
         $(".tags2 select").change(function(){
+            $(".tags2 select option:first-child").attr("disabled", true);
+            var selected_value = $(".tags2 select option:selected").val();
             var selected_text = $(".tags2 select option:selected").text();
             var selected_color = $(".tags2 select option:selected").attr("data-color");
 
-            var tag = '<div class="choosen-tag">'+
+            var tag = '<div class="choosen-tag" data-option="'+selected_value+'"<   >'+
                 '<span class="color-tag" style="background-color:'+selected_color+'"></span>'+
                 '<input type="text" readonly name="selected_tags_text2[]" value="'+selected_text+'">'+
                 '<input type="hidden" name="selected_tags_color2[]" value="'+selected_color+'">'+
                 '<a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
                 '</div>';
             $(".selected-tags2").append(tag);
+            $(".tags2 select option:selected").attr("disabled", true);
         });
 
 
         $(".selected-tags2").on("click",".delete", function(e){
+            var option_value = $(this).parent().attr("data-option");
             e.preventDefault(); $(this).parent('div').remove();
+            $(".tags2 select option").each(function(){
+                if($(this).val() == option_value) {
+                    $(this).attr("disabled", false);
+                }
+            })
         })
 
 

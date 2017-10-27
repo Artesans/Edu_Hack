@@ -114,10 +114,10 @@ class wpb_widget extends WP_Widget {
                                         $category_link = get_category_link( $this_category );
                                         ?>
                                         <div class="choosen-tag tag1" style="background-color:<?php echo $selected_tags1_color[$i];?>">
-                                            <a href="<?php echo $category_link;?>">
+                                            <!--<a href="<?php echo $category_link;?>">-->
                                                 <img class="tag-img" src="<?php echo $selected_tags1_img[$i]; ?>"/>
                                                 <span class="text-tag"><?php echo $selected_tags1_text[$i];?></span>
-                                            </a>
+                                            <!--</a>-->
                                         </div>
                                     <?php }?>
                                 </div>
@@ -130,10 +130,10 @@ class wpb_widget extends WP_Widget {
                                         $category_link = get_category_link( $this_category);
                                         ?>
                                         <div class="choosen-tag tag2">
-                                            <a href="<?php echo $category_link;?>">
+                                            <!--<a href="<?php echo $category_link;?>">-->
                                                 <span class="color-tag" style="background-color:<?php echo $selected_tags2_color[$i];?>"></span>
                                                 <span class="text-tag"><?php echo $selected_tags2_text[$i];?></span>
-                                            </a>
+                                            <!--</a>-->
                                         </div>
                                     <?php }?>
                                 </div>
@@ -151,7 +151,7 @@ class wpb_widget extends WP_Widget {
                     <section id="project-description" class="project-section" >
                         <h3><?php _e("Descripció", 'eduhack-projects-widget');?></h3>
                         <div class="description"><?php echo $stored_meta['widget-description'][0]; ?></div>
-                        <span class="read-more read-button"><?php _e("Read More");?></span>
+                        <span class="read-more read-button"><?php _e("Llegir més", 'eduhack-projects-widget');?></span>
                     </section>
                 <?php }?>
 
