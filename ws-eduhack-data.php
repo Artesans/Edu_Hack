@@ -57,6 +57,33 @@ foreach($posts as $p){
     $status = unserialize($status);
     $result["status"] = $status;
 
+    $selected_tags1_id = unserialize($stored_meta['widget-tags1_id'][0]);
+    $selected_tags1_id = unserialize($selected_tags1_id);
+    if(!empty($selected_tags1_id)){
+        foreach($selected_tags1_id as $id1){
+            $tag_img = get_term_meta($id1, 'xtec_image');
+            $tag_color = get_term_meta($id1, 'xtec_color');
+            $this_tag = get_term($id1);
+            $tag_text = $this_tag->name;
+            $result["tags1_text"][] = $tag_text;
+            $result["tags1_img"][] = $tag_img[0];
+            $result["tags1_color"][] = $tag_color[0];
+        }
+    }
+
+    $selected_tags2_id = unserialize($stored_meta['widget-tags2_id'][0]);
+    $selected_tags2_id = unserialize($selected_tags2_id);
+    if(!empty($selected_tags2_id)){
+        foreach($selected_tags2_id as $id2){
+            $tag_color = get_term_meta($id2, 'xtec_color');
+            $this_tag = get_term($id2);
+            $tag_text = $this_tag->name;
+            $result["tags2_text"][] = $tag_text;
+            $result["tags2_color"][] = $tag_color[0];
+        }
+    }
+
+    /*
     $tags1_text = unserialize($stored_meta["widget-tags1_text"][0]);
     $tags1_text = unserialize($tags1_text);
     $result["tags1_text"] = $tags1_text;
@@ -76,6 +103,7 @@ foreach($posts as $p){
     $tags2_color = unserialize($stored_meta["widget-tags2_color"][0]);
     $tags2_color = unserialize($tags2_color);
     $result["tags2_color"] = $tags2_color;
+    */
 
     $project_img = $stored_meta["widget-project_img"][0];
     $project_image = wp_get_attachment_image_src( $project_img);

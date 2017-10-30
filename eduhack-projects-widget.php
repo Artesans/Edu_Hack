@@ -247,17 +247,21 @@ function projects_meta_callback( $post ) {
                     else $tags2[] = $tag;
                 }
 
-                $selected_tags1_text = unserialize($stored_meta['widget-tags1_text'][0]);
-                $selected_tags1_text = unserialize($selected_tags1_text);
-                $selected_tags1_color = unserialize($stored_meta['widget-tags1_color'][0]);
-                $selected_tags1_color = unserialize($selected_tags1_color);
-                $selected_tags1_img = unserialize($stored_meta['widget-tags1_img'][0]);
-                $selected_tags1_img = unserialize($selected_tags1_img);
+                //$selected_tags1_text = unserialize($stored_meta['widget-tags1_text'][0]);
+                //$selected_tags1_text = unserialize($selected_tags1_text);
+                //$selected_tags1_color = unserialize($stored_meta['widget-tags1_color'][0]);
+                //$selected_tags1_color = unserialize($selected_tags1_color);
+                //$selected_tags1_img = unserialize($stored_meta['widget-tags1_img'][0]);
+                //$selected_tags1_img = unserialize($selected_tags1_img);
+                $selected_tags1_id = unserialize($stored_meta['widget-tags1_id'][0]);
+                $selected_tags1_id = unserialize($selected_tags1_id);
 
-                $selected_tags2_text = unserialize($stored_meta['widget-tags2_text'][0]);
-                $selected_tags2_text = unserialize($selected_tags2_text);
-                $selected_tags2_color = unserialize($stored_meta['widget-tags2_color'][0]);
-                $selected_tags2_color = unserialize($selected_tags2_color);
+                //$selected_tags2_text = unserialize($stored_meta['widget-tags2_text'][0]);
+                //$selected_tags2_text = unserialize($selected_tags2_text);
+                //$selected_tags2_color = unserialize($stored_meta['widget-tags2_color'][0]);
+                //$selected_tags2_color = unserialize($selected_tags2_color);
+                $selected_tags2_id = unserialize($stored_meta['widget-tags2_id'][0]);
+                $selected_tags2_id = unserialize($selected_tags2_id);
 
                 ?>
 
@@ -269,21 +273,28 @@ function projects_meta_callback( $post ) {
                             <?php for($i=0; $i<count($tags1); $i++){
                                 $imatge = get_term_meta( $tags1[$i]->term_id, 'xtec_image');
                                 $color = get_term_meta( $tags1[$i]->term_id, 'xtec_color' );
-                                $disabled = ( in_array($tags1[$i]->name, $selected_tags1_text) )? 'disabled' : '';
+                                $disabled = ( in_array($tags1[$i]->term_id, $selected_tags1_id) )? 'disabled' : '';
 
                             ?>
-                            <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>" <?php echo $disabled;?> ><?php echo $tags1[$i]->name;?></option>
+                            <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>" data-id="<?php echo $tags1[$i]->term_id;?>" <?php echo $disabled;?> ><?php echo $tags1[$i]->name;?></option>
                         <?php }?>
                         </select>
                         <div class="selected-tags1">
-                            <?php if(!empty($selected_tags1_text)){
-                                for($i=0; $i<count($selected_tags1_text); $i++){?>
-                                    <div class="choosen-tag" style="background-color:<?php echo $selected_tags1_color[$i];?>">
-                                        <!--<span class="color-tag" style="background-color:<?php echo $selected_tags1_color[$i];?>"></span>-->
-                                        <input type="text" readonly name="selected_tags_text1[]" value="<?php echo $selected_tags1_text[$i];?>">
-                                        <input type="hidden" name="selected_tags_color1[]" value="<?php echo $selected_tags1_color[$i];?>">
-                                        <input class="tag-image-url-'+x+'" type="hidden" name="selected_tags_img1[]" value="<?php echo $selected_tags1_img[$i];?>" />
-                                        <img class="tag-image-url" src="<?php echo $selected_tags1_img[$i];?>" />
+                            <?php if(!empty($selected_tags1_id)){
+                                for($i=0; $i<count($selected_tags1_id); $i++){
+                                    $tag_img = get_term_meta($selected_tags1_id[$i], 'xtec_image');
+                                    $tag_color = get_term_meta($selected_tags1_id[$i], 'xtec_color');
+                                    $this_tag = get_term($selected_tags1_id[$i]);
+                                    $tag_text = $this_tag->name;
+
+                            ?>
+                                    <div class="choosen-tag" style="background-color:<?php echo $tag_color[0];?>">
+                                        <!--<span class="color-tag" style="background-color:<?php echo $tag_color;?>"></span>-->
+                                        <input type="text" readonly name="selected_tags_text1[]" value="<?php echo $tag_text;?>">
+                                        <!--<input type="hidden" name="selected_tags_color1[]" value="<?php echo $tag_color[0];?>">-->
+                                        <input type="hidden" name="selected_tags_id1[]" value="<?php echo $selected_tags1_id[$i];?>">
+                                        <!--<input class="tag-image-url-'+x+'" type="hidden" name="selected_tags_img1[]" value="<?php echo $tag_img;?>" />-->
+                                        <img class="tag-image-url" src="<?php echo $tag_img[0];?>" />
                                         <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     </div>
                                 <?php }?>
@@ -300,18 +311,23 @@ function projects_meta_callback( $post ) {
                             <?php for($i=0; $i<count($tags2); $i++){
                                 $imatge = get_term_meta( $tags2[$i]->term_id, 'xtec_image');
                                 $color = get_term_meta( $tags2[$i]->term_id, 'xtec_color' );
-                                $disabled = ( in_array($tags2[$i]->name, $selected_tags2_text) )? 'disabled' : '';
+                                $disabled = ( in_array($tags2[$i]->term_id, $selected_tags2_id) )? 'disabled' : '';
                                 ?>
-                                <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>" <?php echo $disabled;?> ><?php echo $tags2[$i]->name;?></option>
+                                <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>" data-id="<?php echo $tags2[$i]->term_id;?>" <?php echo $disabled;?> ><?php echo $tags2[$i]->name;?></option>
                             <?php }?>
                         </select>
                         <div class="selected-tags2">
-                            <?php if(!empty($selected_tags2_text)){
-                                for($i=0; $i<count($selected_tags2_text); $i++){?>
+                            <?php if(!empty($selected_tags2_id)){
+                                for($i=0; $i<count($selected_tags2_id); $i++){
+                                    $tag_color = get_term_meta($selected_tags2_id[$i], 'xtec_color');
+                                    $this_tag = get_term($selected_tags2_id[$i]);
+                                    $tag_text = $this_tag->name;
+                            ?>
                                     <div class="choosen-tag">
-                                        <span class="color-tag" style="background-color:<?php echo $selected_tags2_color[$i];?>"></span>
-                                        <input type="text" readonly name="selected_tags_text2[]" value="<?php echo $selected_tags2_text[$i];?>">
-                                        <input type="hidden" name="selected_tags_color2[]" value="<?php echo $selected_tags2_color[$i];?>">
+                                        <span class="color-tag" style="background-color:<?php echo $tag_color[0];?>"></span>
+                                        <input type="text" readonly name="selected_tags_text2[]" value="<?php echo $tag_text;?>">
+                                        <input type="hidden" name="selected_tags_color2[]" value="<?php echo $tag_color[0];?>">
+                                        <input type="hidden" name="selected_tags_id2[]" value="<?php echo $selected_tags2_id[$i];?>">
                                         <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     </div>
                                 <?php }?>
@@ -402,19 +418,23 @@ function projects_meta_save( $post_id ) {
         delete_post_meta($post_id, 'widget-facilitador_img');
     }
     if( isset( $_POST[ 'selected_tags_text1' ] ) ) {
-        update_post_meta( $post_id, 'widget-tags1_text', sanitize_text_field(serialize( $_POST[ 'selected_tags_text1' ]) ) );
-        update_post_meta( $post_id, 'widget-tags1_color', sanitize_text_field(serialize( $_POST[ 'selected_tags_color1' ]) ) );
-        update_post_meta( $post_id, 'widget-tags1_img', sanitize_text_field(serialize( $_POST[ 'selected_tags_img1' ]) ) );
+        //update_post_meta( $post_id, 'widget-tags1_text', sanitize_text_field(serialize( $_POST[ 'selected_tags_text1' ]) ) );
+        //update_post_meta( $post_id, 'widget-tags1_color', sanitize_text_field(serialize( $_POST[ 'selected_tags_color1' ]) ) );
+        //update_post_meta( $post_id, 'widget-tags1_img', sanitize_text_field(serialize( $_POST[ 'selected_tags_img1' ]) ) );
+        update_post_meta( $post_id, 'widget-tags1_id', sanitize_text_field(serialize( $_POST[ 'selected_tags_id1' ]) ) );
     }else{
-        delete_post_meta($post_id, 'widget-tags1_text');
-        delete_post_meta($post_id, 'widget-tags1_color');
+        //delete_post_meta($post_id, 'widget-tags1_text');
+        //delete_post_meta($post_id, 'widget-tags1_color');
+        delete_post_meta($post_id, 'widget-tags1_id');
     }
     if( isset( $_POST[ 'selected_tags_text2' ] ) ) {
-        update_post_meta( $post_id, 'widget-tags2_text', sanitize_text_field(serialize( $_POST[ 'selected_tags_text2' ]) ) );
-        update_post_meta( $post_id, 'widget-tags2_color', sanitize_text_field(serialize( $_POST[ 'selected_tags_color2' ]) ) );
+        //update_post_meta( $post_id, 'widget-tags2_text', sanitize_text_field(serialize( $_POST[ 'selected_tags_text2' ]) ) );
+        //update_post_meta( $post_id, 'widget-tags2_color', sanitize_text_field(serialize( $_POST[ 'selected_tags_color2' ]) ) );
+        update_post_meta( $post_id, 'widget-tags2_id', sanitize_text_field(serialize( $_POST[ 'selected_tags_id2' ]) ) );
     }else{
-        delete_post_meta($post_id, 'widget-tags2_text');
-        delete_post_meta($post_id, 'widget-tags2_color');
+        //delete_post_meta($post_id, 'widget-tags2_text');
+        //delete_post_meta($post_id, 'widget-tags2_color');
+        delete_post_meta($post_id, 'widget-tags2_id');
     }
 
     if( isset( $_POST[ 'config1' ] ) ) {

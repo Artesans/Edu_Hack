@@ -129,11 +129,13 @@
             var selected_text = $(".tags1 select option:selected").text();
             var selected_color = $(".tags1 select option:selected").attr("data-color");
             var selected_img = $(".tags1 select option:selected").attr("data-img");
+            var selected_id = $(".tags1 select option:selected").attr("data-id");
 
             var tag = '<div class="choosen-tag" style="background-color:'+selected_color+'" data-option="'+selected_value+'">'+
                 '<span class="color-tag" style="background-color:'+selected_color+'"></span>'+
                 '<input type="text" readonly name="selected_tags_text1[]" value="'+selected_text+'">'+
                 '<input type="hidden" name="selected_tags_color1[]" value="'+selected_color+'">'+
+                '<input type="hidden" name="selected_tags_id1[]" value="'+selected_id+'">'+
                 '<img class="tag-image-url" src="'+selected_img+'" />'+
                 '<a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
                 '<input class="tag-image-url-'+x+'" type="hidden" name="selected_tags_img1[]" value="'+selected_img+'" />'+
@@ -156,11 +158,13 @@
             var selected_value = $(".tags2 select option:selected").val();
             var selected_text = $(".tags2 select option:selected").text();
             var selected_color = $(".tags2 select option:selected").attr("data-color");
+            var selected_id = $(".tags2 select option:selected").attr("data-id");
 
             var tag = '<div class="choosen-tag" data-option="'+selected_value+'"<   >'+
                 '<span class="color-tag" style="background-color:'+selected_color+'"></span>'+
                 '<input type="text" readonly name="selected_tags_text2[]" value="'+selected_text+'">'+
                 '<input type="hidden" name="selected_tags_color2[]" value="'+selected_color+'">'+
+                '<input type="hidden" name="selected_tags_id2[]" value="'+selected_id+'">'+
                 '<a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
                 '</div>';
             $(".selected-tags2").append(tag);

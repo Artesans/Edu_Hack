@@ -89,50 +89,66 @@ class wpb_widget extends WP_Widget {
 
                 <!-- TAGS -->
                 <?php
+                /*
                     $selected_tags1_text = unserialize($stored_meta['widget-tags1_text'][0]);
                     $selected_tags1_text = unserialize($selected_tags1_text);
                     $selected_tags1_img = unserialize($stored_meta['widget-tags1_img'][0]);
                     $selected_tags1_img = unserialize($selected_tags1_img);
                     $selected_tags1_color = unserialize($stored_meta['widget-tags1_color'][0]);
                     $selected_tags1_color = unserialize($selected_tags1_color);
+                */
 
+                    $selected_tags1_id = unserialize($stored_meta['widget-tags1_id'][0]);
+                    $selected_tags1_id = unserialize($selected_tags1_id);
+
+                /*
                     $selected_tags2_text = unserialize($stored_meta['widget-tags2_text'][0]);
                     $selected_tags2_text = unserialize($selected_tags2_text);
                     $selected_tags2_color = unserialize($stored_meta['widget-tags2_color'][0]);
                     $selected_tags2_color = unserialize($selected_tags2_color);
+                */
 
-                    if(!empty($selected_tags1_text) || !empty($selected_tags2_text)){?>
+                    $selected_tags2_id = unserialize($stored_meta['widget-tags2_id'][0]);
+                    $selected_tags2_id = unserialize($selected_tags2_id);
+
+                    if(!empty($selected_tags1_id) || !empty($selected_tags2_id)){?>
                         <section id="project-tags" class="project-section" >
                             <h3><?php _e("Etiquetes", 'eduhack-projects-widget');?></h3>
                             <?php
 
-                            if(!empty($selected_tags1_text)){?>
+                            if(!empty($selected_tags1_id)){?>
                                 <div class="block-tags">
                                     <?php
-                                    for($i=0; $i<count($selected_tags1_text); $i++){
-                                        $this_category = get_cat_ID($selected_tags1_text[$i]);
-                                        $category_link = get_category_link( $this_category );
+                                    for($i=0; $i<count($selected_tags1_id); $i++){
+                                        $category_link = get_category_link( $selected_tags1_id[$i] );
+                                        $tag_img = get_term_meta($selected_tags1_id[$i], 'xtec_image');
+                                        $tag_color = get_term_meta($selected_tags1_id[$i], 'xtec_color');
+                                        $this_tag = get_term($selected_tags1_id[$i]);
+                                        $tag_text = $this_tag->name;
+
                                         ?>
-                                        <div class="choosen-tag tag1" style="background-color:<?php echo $selected_tags1_color[$i];?>">
+                                        <div class="choosen-tag tag1" style="background-color:<?php echo $tag_color[0];?>">
                                             <!--<a href="<?php echo $category_link;?>">-->
-                                                <img class="tag-img" src="<?php echo $selected_tags1_img[$i]; ?>"/>
-                                                <span class="text-tag"><?php echo $selected_tags1_text[$i];?></span>
+                                                <img class="tag-img" src="<?php echo $tag_img[0]; ?>"/>
+                                                <span class="text-tag"><?php echo $tag_text;?></span>
                                             <!--</a>-->
                                         </div>
                                     <?php }?>
                                 </div>
                             <?php }
-                            if(!empty($selected_tags2_text)){?>
+                            if(!empty($selected_tags2_id)){?>
                                 <div class="block-tags">
                                     <?php
-                                    for($i=0; $i<count($selected_tags2_text); $i++){
-                                        $this_category = get_cat_ID($selected_tags2_text[$i]);
-                                        $category_link = get_category_link( $this_category);
+                                    for($i=0; $i<count($selected_tags2_id); $i++){
+                                        $category_link = get_category_link( $selected_tags2_id[$i]);
+                                        $tag_color = get_term_meta($selected_tags2_id[$i], 'xtec_color');
+                                        $this_tag = get_term($selected_tags2_id[$i]);
+                                        $tag_text = $this_tag->name;
                                         ?>
                                         <div class="choosen-tag tag2">
                                             <!--<a href="<?php echo $category_link;?>">-->
-                                                <span class="color-tag" style="background-color:<?php echo $selected_tags2_color[$i];?>"></span>
-                                                <span class="text-tag"><?php echo $selected_tags2_text[$i];?></span>
+                                                <span class="color-tag" style="background-color:<?php echo $tag_color[0];?>"></span>
+                                                <span class="text-tag"><?php echo $tag_text;?></span>
                                             <!--</a>-->
                                         </div>
                                     <?php }?>
