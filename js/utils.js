@@ -22,13 +22,14 @@
                     ' <input type="text" name="team[school][]">'+
                     ' <label for="meta-text" class="team-label">Imatge  </label>'+
                     ' <input class="image-url-'+x+'" type="hidden" name="team[image][]" />'+
-                    ' <input type="button" class="button upload-button" value="Upload Image" data-buttonid="'+x+'" data-att-image="image-url-" data-img-src="image-src-"/>'+
+                    ' <input type="button" class="button upload-button-'+x+'" value="Pujar imatge" data-buttonid="'+x+'" data-att-image="image-url-" data-img-src="image-src-"/>'+
                     ' <img src="" class="team-img image-src-'+x+'"/><a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
                     '</div>'); //add input box
 
+                setButtonClick(x);
                 x++;
                 $(this).attr("data-count", x);
-                setButtonClick();
+
             }
             else
             {
@@ -52,12 +53,13 @@
                     ' <input type="text" name="facilitador[school][]">'+
                     ' <label for="meta-text" class="facilitador-label">Imatge  </label>'+
                     ' <input class="fac-image-url-'+x+'" type="hidden" name="facilitador[image][]" />'+
-                    ' <input type="button" class="button upload-button" value="Upload Image" data-buttonid="'+x+'" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>'+
+                    ' <input type="button" class="button upload-button-'+x+'" value="Pujar imatge" data-buttonid="'+x+'" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>'+
                     ' <img src="" class="team-img facilitador-img fac-image-src-'+x+'"/>'+
                     '<a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
                     '</div>'); //add input box
+                setButtonClick(x);
                 x++;
-                setButtonClick();
+
             }
             else
             {
@@ -78,13 +80,12 @@
                     '<input type="text" name="config1[tag-text][]" value="">'+
                     '<label for="meta-text" class="team-label">Imatge</label>'+
                     '<input class="config-image-url-'+x+'" type="hidden" name="config1[image][]" value="" />'+
-                    '<input type="button" class="button upload-button button-'+x+'" value="Upload Image" data-buttonid="'+x+'" data-att-image="config-image-url-" data-img-src="config-image-src-"/>'+
+                    '<input type="button" class="button upload-button-'+x+' button-'+x+'" value="Pujar imatge" data-buttonid="'+x+'" data-att-image="config-image-url-" data-img-src="config-image-src-"/>'+
                     '<img src="" class="team-img config-image-src-'+x+'"/>'+
                     '<a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'+
                     '</div>'); //add input box
-
+                setButtonClick(x);
                 x++;
-                setButtonClick();
 
             }
             else
@@ -188,15 +189,17 @@
         } );
 
 
-        setButtonClick();
+        setButtonClick('team0');
+        setButtonClick('fac0');
+        setButtonClick('proj0');
 
     });
 
 
-    function setButtonClick(){
+    function setButtonClick(img_id){
         var mediaUploader, this_id, image, img_src;
 
-        $('.upload-button').click(function(e) {
+        $('.upload-button-'+img_id).click(function(e) {
             e.preventDefault();
 
             this_id = $(this).attr("data-buttonid");
@@ -219,7 +222,7 @@
             mediaUploader.on('select', function() {
                 var attachment = mediaUploader.state().get('selection').first().toJSON();
                 $('.'+image+this_id).val(attachment.id);
-                $('.button-'+this_id).val("Change image");
+                $('.upload-button-'+img_id).val("Canviar imatge");
                 $('.'+img_src+this_id).attr( 'src', attachment.url);
 
             });

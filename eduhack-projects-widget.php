@@ -137,7 +137,7 @@ function projects_meta_callback( $post ) {
                                 <label for="meta-text" class="team-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
                                 <input class="image-url-0" type="hidden" name="team[image][]" />
                                 <img src="" class="team-img image-src-0"/>
-                                <input type="button" class="button upload-button" value="Upload Image" data-buttonid="0" data-att-image="image-url-" data-img-src="image-src-"/>
+                                <input type="button" class="button upload-button-team0" value="Pujar imatge" data-buttonid="0" data-att-image="image-url-" data-img-src="image-src-"/>
 
                             </div>
                     <?php }?>
@@ -182,7 +182,7 @@ function projects_meta_callback( $post ) {
                             <input type="text" name="facilitador[school][]">
                             <label for="meta-text" class="facilitador-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
                             <input class="fac-image-url-0" type="hidden" name="facilitador[image][]" />
-                            <input type="button" class="button upload-button" value="Upload Image" data-buttonid="0" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>
+                            <input type="button" class="button upload-button-fac0" value="Pujar imatge" data-buttonid="0" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>
                             <img src="" class="facilitador-img fac-image-src-0"/>
                         </div>
                     <?php }?>
@@ -209,7 +209,7 @@ function projects_meta_callback( $post ) {
                     <?php }else{?>
                         <div>
                             <input class="project-image-url-0" type="hidden" name="project-img" />
-                            <input type="button" class="button upload-button" value="Upload Image" data-buttonid="0" data-att-image="project-image-url-" data-img-src="project-image-src-"/>
+                            <input type="button" class="button upload-button-proj0" value="Pujar imatge" data-buttonid="0" data-att-image="project-image-url-" data-img-src="project-image-src-"/>
                             <img src="" class="project-img project-image-src-0"/>
                         </div>
                     <?php }?>
@@ -247,19 +247,9 @@ function projects_meta_callback( $post ) {
                     else $tags2[] = $tag;
                 }
 
-                //$selected_tags1_text = unserialize($stored_meta['widget-tags1_text'][0]);
-                //$selected_tags1_text = unserialize($selected_tags1_text);
-                //$selected_tags1_color = unserialize($stored_meta['widget-tags1_color'][0]);
-                //$selected_tags1_color = unserialize($selected_tags1_color);
-                //$selected_tags1_img = unserialize($stored_meta['widget-tags1_img'][0]);
-                //$selected_tags1_img = unserialize($selected_tags1_img);
                 $selected_tags1_id = unserialize($stored_meta['widget-tags1_id'][0]);
                 $selected_tags1_id = unserialize($selected_tags1_id);
 
-                //$selected_tags2_text = unserialize($stored_meta['widget-tags2_text'][0]);
-                //$selected_tags2_text = unserialize($selected_tags2_text);
-                //$selected_tags2_color = unserialize($stored_meta['widget-tags2_color'][0]);
-                //$selected_tags2_color = unserialize($selected_tags2_color);
                 $selected_tags2_id = unserialize($stored_meta['widget-tags2_id'][0]);
                 $selected_tags2_id = unserialize($selected_tags2_id);
 
