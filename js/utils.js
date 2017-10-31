@@ -132,7 +132,7 @@
             var selected_img = $(".tags1 select option:selected").attr("data-img");
             var selected_id = $(".tags1 select option:selected").attr("data-id");
 
-            var tag = '<div class="choosen-tag" style="background-color:'+selected_color+'" data-option="'+selected_value+'">'+
+            var tag = '<div class="choosen-tag" style="background-color:'+selected_color+'" data-option="'+selected_id+'">'+
                 '<span class="color-tag" style="background-color:'+selected_color+'"></span>'+
                 '<input type="text" readonly name="selected_tags_text1[]" value="'+selected_text+'">'+
                 '<input type="hidden" name="selected_tags_color1[]" value="'+selected_color+'">'+
@@ -161,7 +161,7 @@
             var selected_color = $(".tags2 select option:selected").attr("data-color");
             var selected_id = $(".tags2 select option:selected").attr("data-id");
 
-            var tag = '<div class="choosen-tag" data-option="'+selected_value+'"<   >'+
+            var tag = '<div class="choosen-tag" data-option="'+selected_id+'" >'+
                 '<span class="color-tag" style="background-color:'+selected_color+'"></span>'+
                 '<input type="text" readonly name="selected_tags_text2[]" value="'+selected_text+'">'+
                 '<input type="hidden" name="selected_tags_color2[]" value="'+selected_color+'">'+
@@ -230,4 +230,5 @@
             mediaUploader.open();
         });
     }
+
 })( jQuery );

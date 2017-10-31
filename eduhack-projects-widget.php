@@ -123,7 +123,7 @@ function projects_meta_callback( $post ) {
                                 <input type="text" name="team[school][]" value="<?php echo $team_school[$i];?>">
                                 <label for="meta-text" class="team-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
                                 <input class="image-url-<?php echo $i;?>" type="hidden" name="team[image][]" value="<?php echo $team_img[$i];?>" />
-                                <input type="button" class="button upload-button button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="image-url-" data-img-src="image-src-"/>
+                                <input type="button" class="button upload-button-team0 button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="image-url-" data-img-src="image-src-"/>
                                 <img src="<?php echo $this_image[0]; ?>" class="team-img image-src-<?php echo $i;?>"/>
                                 <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             </div>
@@ -168,7 +168,7 @@ function projects_meta_callback( $post ) {
                                 <input type="text" name="facilitador[school][]" value="<?php echo $facilitador_school[$i];?>">
                                 <label for="meta-text" class="facilitador-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
                                 <input class="fac-image-url-<?php echo $i;?>" type="hidden" name="facilitador[image][]" value="<?php echo $facilitador_img[$i];?>" />
-                                <input type="button" class="button upload-button button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>
+                                <input type="button" class="button upload-button-fac0 button-<?php echo $i;?>" value="<?php echo $button_text;?>" data-buttonid="<?php echo $i;?>" data-att-image="fac-image-url-" data-img-src="fac-image-src-"/>
                                 <img src="<?php echo $this_image[0]; ?>" class="facilitador-img fac-image-src-<?php echo $i;?>"/>
                                 <a href="#" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             </div>
@@ -202,7 +202,7 @@ function projects_meta_callback( $post ) {
                             <div>
                                 <label for="meta-text" class="project-img-label"><?php _e( 'Imatge', 'eduhack-projects-widget' )?></label>
                                 <input class="project-image-url-0" type="hidden" name="project-img" value="<?php echo $project_img;?>" />
-                                <input type="button" class="button upload-button button-0" value="<?php echo $button_text;?>" data-buttonid="0" data-att-image="project-image-url-" data-img-src="project-image-src-"/>
+                                <input type="button" class="button upload-button-proj0 button-0" value="<?php echo $button_text;?>" data-buttonid="0" data-att-image="project-image-url-" data-img-src="project-image-src-"/>
                                 <img src="<?php echo $this_image[0]; ?>" class="project-img project-image-src-0"/>
                             </div>
 
@@ -278,7 +278,7 @@ function projects_meta_callback( $post ) {
                                     $tag_text = $this_tag->name;
 
                             ?>
-                                    <div class="choosen-tag" style="background-color:<?php echo $tag_color[0];?>">
+                                    <div class="choosen-tag" style="background-color:<?php echo $tag_color[0];?>" data-option="<?php echo $i;?>">
                                         <!--<span class="color-tag" style="background-color:<?php echo $tag_color;?>"></span>-->
                                         <input type="text" readonly name="selected_tags_text1[]" value="<?php echo $tag_text;?>">
                                         <!--<input type="hidden" name="selected_tags_color1[]" value="<?php echo $tag_color[0];?>">-->
@@ -303,7 +303,7 @@ function projects_meta_callback( $post ) {
                                 $color = get_term_meta( $tags2[$i]->term_id, 'xtec_color' );
                                 $disabled = ( in_array($tags2[$i]->term_id, $selected_tags2_id) )? 'disabled' : '';
                                 ?>
-                                <option value="<?php echo $i;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>" data-id="<?php echo $tags2[$i]->term_id;?>" <?php echo $disabled;?> ><?php echo $tags2[$i]->name;?></option>
+                                <option value="<?php echo $tags2[$i]->term_id;?>" data-color="<?php echo $color[0];?>" data-img="<?php echo $imatge[0];?>" data-id="<?php echo $tags2[$i]->term_id;?>" <?php echo $disabled;?> ><?php echo $tags2[$i]->name;?></option>
                             <?php }?>
                         </select>
                         <div class="selected-tags2">
@@ -313,7 +313,7 @@ function projects_meta_callback( $post ) {
                                     $this_tag = get_term($selected_tags2_id[$i]);
                                     $tag_text = $this_tag->name;
                             ?>
-                                    <div class="choosen-tag">
+                                    <div class="choosen-tag" data-option="<?php echo $selected_tags2_id[$i];?>">
                                         <span class="color-tag" style="background-color:<?php echo $tag_color[0];?>"></span>
                                         <input type="text" readonly name="selected_tags_text2[]" value="<?php echo $tag_text;?>">
                                         <input type="hidden" name="selected_tags_color2[]" value="<?php echo $tag_color[0];?>">
